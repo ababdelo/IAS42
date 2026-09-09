@@ -1,0 +1,766 @@
+/* ==========================================================================
+   Dashboard Layout (Locked Viewport)
+   ========================================================================== */
+.dashboard-wrapper {
+  padding: 1.5rem;
+  padding-inline-end: 1.8rem;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 1.8rem;
+  align-items: stretch;
+  height: 100%;
+}
+
+.main-column,
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  height: 100%;
+  min-height: 0;
+}
+
+.weather-card,
+.water-card {
+  flex: 0 0 auto;
+}
+
+.fields-card,
+.timeline-card {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.card__header {
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   Internal Scrolling Areas & Custom Scrollbars
+   ========================================================================== */
+.sector-cards-grid {
+  flex: 1 1 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+  align-content: start;
+  overflow-y: auto;
+  padding-inline-end: 0.8rem;
+  min-height: 0;
+}
+
+.timeline-scroll-area {
+  flex: 1 1 0;
+  overflow-y: auto;
+  padding-inline-end: 0.8rem;
+  min-height: 0;
+}
+
+.sector-cards-grid::-webkit-scrollbar,
+.timeline-scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sector-cards-grid::-webkit-scrollbar-track,
+.timeline-scroll-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+}
+
+.sector-cards-grid::-webkit-scrollbar-thumb,
+.timeline-scroll-area::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--first-color) 40%, transparent);
+  border-radius: 10px;
+}
+
+body.dark-theme .sector-cards-grid::-webkit-scrollbar-track,
+body.dark-theme .timeline-scroll-area::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ==========================================================================
+   Organic Cards Base
+   ========================================================================== */
+.organic-card {
+  background-color: var(--surface-color);
+  border-radius: 1.4rem;
+  padding: 1.6rem;
+  box-shadow: 0 4px 24px rgba(30, 60, 40, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.card__header.align-center {
+  align-items: center;
+}
+
+.card__title {
+  color: var(--title-color);
+  font-size: 1.15rem;
+  font-weight: var(--font-bold);
+}
+
+.card__subtitle {
+  color: var(--text-color);
+  font-size: 0.85rem;
+}
+
+.btn-text {
+  color: var(--first-color);
+  font-weight: var(--font-bold);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+}
+
+.live-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: var(--font-bold);
+  color: var(--first-color-dark);
+  background-color: color-mix(in srgb, var(--first-color) 15%, transparent);
+  padding: 0.3rem 0.8rem;
+  border-radius: 2rem;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--first-color);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(148, 200, 11, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px rgba(148, 200, 11, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(148, 200, 11, 0);
+  }
+}
+
+/* ==========================================================================
+   Compact Weather Card
+   ========================================================================== */
+.weather-compact-core {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--body-color);
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.weather-left {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.weather-icon-large {
+  font-size: 3.5rem;
+  color: #eab308;
+  line-height: 1;
+}
+
+.weather-temp-cond .temp-wrapper {
+  color: var(--title-color);
+}
+
+.weather-temp-cond .temp {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.weather-temp-cond .unit {
+  font-size: 1.2rem;
+  vertical-align: super;
+}
+
+.weather-temp-cond h3 {
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: var(--font-semi-bold);
+  margin-top: 0.2rem;
+}
+
+.weather-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.8rem;
+}
+
+.weather-datetime {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+[dir="rtl"] .weather-datetime {
+  text-align: left;
+}
+
+.weather-datetime-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.weather-datetime strong {
+  font-size: 1rem;
+  color: var(--title-color);
+}
+
+.weather-datetime span {
+  font-size: 0.85rem;
+  color: var(--text-color);
+}
+
+.weather-datetime i {
+  color: var(--text-color);
+}
+
+.weather-minor-metrics {
+  display: flex;
+  gap: 1rem;
+}
+
+.weather-minor-metrics .metric {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+}
+
+.weather-minor-metrics .metric:nth-child(1) i {
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+/* Wind - Slate Gray */
+.weather-minor-metrics .metric:nth-child(2) i {
+  color: #3b82f6;
+  font-size: 1.1rem;
+}
+
+/* Humidity - Blue */
+
+/* ==========================================================================
+   Sector Mini-Cards (Plant Image & NPK Grid)
+   ========================================================================== */
+.sector-box {
+  background-color: var(--body-color);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease;
+}
+
+.sector-box:hover {
+  transform: translateY(-3px);
+}
+
+.sector-box-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.sector-icon {
+  width: 48px;
+  height: 48px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.sector-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.sector-title h4 {
+  color: var(--title-color);
+  font-size: 0.95rem;
+  font-weight: var(--font-bold);
+}
+
+.sector-title span {
+  font-size: 0.75rem;
+  color: var(--text-color);
+}
+
+/* Sector Status Badges */
+.sector-status {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  font-weight: var(--font-bold);
+}
+
+.sector-status i {
+  font-size: 0.8rem;
+}
+
+.sector-status.status-optimal {
+  background-color: color-mix(in srgb, var(--first-color) 15%, transparent);
+  color: var(--first-color-dark);
+}
+
+.sector-status.status-warning {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+[dir="rtl"] .sector-status {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Restored Grid with 5 Elements for complete UX */
+.sector-box-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1.2rem;
+  column-gap: 0.5rem;
+  background-color: var(--surface-color);
+  padding: 1rem;
+  border-radius: 0.8rem;
+}
+
+.metric-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.metric-block .label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.65rem;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+/* Distinct Sensor Icon & Value Palette */
+.metric-block .label i {
+  font-size: 0.95rem;
+}
+
+.metric-block.color-moisture .label i,
+.metric-block.color-moisture .value {
+  color: #61B8E4;
+}
+
+.metric-block.color-ph .label i,
+.metric-block.color-ph .value {
+  color: #EC4899;
+}
+
+.metric-block.color-n .label i,
+.metric-block.color-n .value {
+  color: #7DA417;
+}
+
+.metric-block.color-p .label i,
+.metric-block.color-p .value {
+  color: #F5BA0D;
+}
+
+.metric-block.color-k .label i,
+.metric-block.color-k .value {
+  color: #AA64EB;
+}
+
+.metric-block.color-pump .label i,
+.metric-block.color-pump .value {
+  color: #6B7280;
+}
+
+.metric-block.color-pump .value.stopped {
+  font-size: 0.85rem;
+}
+
+.metric-block .value {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.metric-block .value small {
+  font-size: 0.65rem;
+  color: var(--text-color);
+  font-weight: normal;
+}
+
+/* ==========================================================================
+   Refined Analytical Badges (More Technical, Less Generic)
+   ========================================================================== */
+.sector-ai-insight {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: space-between;
+  margin-top: 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.75rem;
+}
+
+.ai-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: color-mix(in srgb, var(--body-color) 12%, transparent);
+  border: 1px solid;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+  color: var(--text-color);
+}
+
+.ai-badge i {
+  font-size: 0.9rem;
+}
+
+/* Status Colors */
+.ai-badge.status-good i {
+  color: #10b981;
+}
+
+.ai-badge.status-good strong {
+  color: #047857;
+}
+
+.ai-badge.status-good {
+  background: #eefff6;
+  border-color: #10b981;
+}
+
+.ai-badge.status-bad {
+  background: #fff1f2;
+  border-color: #9f1239;
+}
+
+.ai-badge.status-bad i {
+  color: #e11d48;
+}
+
+.ai-badge.status-bad strong {
+  color: #9f1239;
+}
+
+.ai-badge.status-info i {
+  color: #6366f1;
+}
+
+/* Dark Theme Adjustments */
+body.dark-theme .ai-badge {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+body.dark-theme .ai-badge.status-bad {
+  background: rgba(225, 29, 72, 0.1);
+  border-color: rgba(225, 29, 72, 0.2);
+  color: #fda4af;
+}
+
+body.dark-theme .ai-badge.status-bad strong {
+  color: #fda4af;
+}
+
+
+/* ==========================================================================
+   Water Tank & Stats
+   ========================================================================== */
+.pump-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--body-color);
+  padding: 0.4rem 0.8rem;
+  border-radius: 2rem;
+  font-size: 0.8rem;
+  color: var(--text-color);
+  font-weight: var(--font-bold);
+}
+
+.pump-badge .pulse {
+  width: 8px;
+  height: 8px;
+  background-color: #9ca3af;
+  border-radius: 50%;
+}
+
+.droplet-container {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.circular-tank {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--body-color);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.06), 0 12px 24px rgba(59, 130, 246, 0.12);
+  border: 6px solid var(--surface-color);
+}
+
+.wave-fill {
+  position: absolute;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: #3b82f6;
+  border-radius: 40%;
+  animation: wave 8s linear infinite;
+  opacity: 0.8;
+}
+
+.wave-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #60a5fa;
+  border-radius: 45%;
+  animation: wave 12s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.tank-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  color: var(--title-color);
+}
+
+.tank-value h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: -5px;
+}
+
+.tank-value span {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  font-weight: var(--font-bold);
+}
+
+.water-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mini-stat {
+  background-color: var(--body-color);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.mini-stat span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-color);
+  margin-bottom: 0.2rem;
+}
+
+.mini-stat strong {
+  font-size: 1.1rem;
+  color: var(--title-color);
+}
+
+/* ==========================================================================
+   Playful Timeline
+   ========================================================================== */
+.playful-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.playful-timeline::before {
+  content: '';
+  position: absolute;
+  inset-inline-start: 20px;
+  top: 10px;
+  bottom: 20px;
+  width: 2px;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.time-node {
+  display: flex;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.node-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  border: 4px solid var(--surface-color);
+  background-color: var(--body-color);
+}
+
+.node-icon.optimal {
+  color: #16a34a;
+  background-color: #dcfce7;
+}
+
+.node-icon.warning {
+  color: #d97706;
+  background-color: #fef3c7;
+}
+
+.node-icon.neutral {
+  color: #0284c7;
+  background-color: #e0f2fe;
+}
+
+.node-data strong {
+  display: block;
+  color: var(--title-color);
+  font-size: 0.95rem;
+}
+
+.node-data p {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  margin: 0.2rem 0;
+}
+
+.node-data span {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+/* ==========================================================================
+   Responsive Overrides
+   ========================================================================== */
+@media screen and (max-width: 1200px) {
+
+  .dashboard-wrapper,
+  .dashboard-layout,
+  .main-column,
+  .side-column {
+    height: auto;
+  }
+
+  .dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .fields-card,
+  .timeline-card {
+    flex: none;
+    height: 380px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sector-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-column {
+    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .weather-compact-core {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .weather-right {
+    align-items: flex-start;
+  }
+
+  .weather-datetime {
+    text-align: left;
+  }
+
+  [dir="rtl"] .weather-datetime {
+    text-align: right;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .dashboard-wrapper {
+    padding: 1.5rem;
+    padding-inline-end: 0.75rem;
+  }
+}
