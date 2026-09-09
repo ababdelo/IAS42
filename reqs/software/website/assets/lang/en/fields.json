@@ -1,0 +1,41 @@
+{
+  "profile": {
+    "title": "Oasis Farm Overview",
+    "location": "Ouarzazate, Morocco",
+    "total_area": "Total Area",
+    "active_nodes": "Active Nodes"
+  },
+  "sectors": {
+    "title": "Hardware Nodes & Sectors",
+    "subtitle": "Manage your deployed ESP32 nodes and crop assignments.",
+    "add_btn": "Add Sector"
+  },
+  "card": {
+    "crop": "Crop Type",
+    "area": "Coverage"
+  },
+  "status": {
+    "online": "Online",
+    "offline": "Offline"
+  },
+  "crops": {
+    "tomato": "Tomato",
+    "cucumber": "Cucumber",
+    "potato": "Potato"
+  },
+  "units": {
+    "hectares": "ha"
+  },
+  "modal": {
+    "add_title": "Register New Sector",
+    "sector_name": "Sector Name",
+    "sector_placeholder": "e.g. Sector Delta",
+    "node_id": "Hardware Node ID (MAC)",
+    "node_placeholder": "e.g. ESP-MAC-XXXX",
+    "crop_type": "Crop Type",
+    "area": "Area (Hectares)"
+  },
+  "messages": {
+    "success": "Hardware node successfully registered to new sector."
+  }
+}
