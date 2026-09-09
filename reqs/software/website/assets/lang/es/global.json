@@ -1,0 +1,43 @@
+{
+  "app_title": "Sistema Agrícola",
+  "app_subtitle": "Tu Asistente",
+  "search": "Buscar...",
+  "export_data": "Exportar",
+  "music": "Música",
+  "theme": {
+    "light": "Claro",
+    "dark": "Oscuro"
+  },
+  "developer": "Desarrollador",
+  "rights": "IAS42. Derechos reservados.",
+  "copied": "Copiado!",
+  "sidebar": {
+    "general": "GENERAL",
+    "dashboard": "Panel",
+    "fields": "Campos",
+    "analytics": "Analíticas",
+    "history": "Historial",
+    "notifications": "Notificaciones",
+    "preferences": "AJUSTES",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema",
+    "logout": "Salir"
+  },
+  "languages": {
+    "en": "Inglés",
+    "fr": "Francés",
+    "es": "Español",
+    "ar": "Árabe"
+  },
+  "chatbot": {
+    "title": "Asistente IAS42",
+    "status": "En línea",
+    "placeholder": "Pregunta sobre tus cultivos, suelo, sensores...",
+    "welcome": "Hola! Soy tu asistente agrícola IAS42. En qué puedo ayudarte hoy?",
+    "suggest_irrigation": "Estado del riego",
+    "suggest_soil": "Humedad del suelo",
+    "suggest_weather": "Pronóstico del tiempo"
+  }
+}
