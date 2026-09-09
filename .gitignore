@@ -1,0 +1,57 @@
+
+# Ignore OS-specific files
+.DS_Store
+._*
+.Trashes
+Thumbs.db
+desktop.ini
+
+# Ignore IDE/editor files
+.vscode/
+.idea/
+
+# Ignore Environment files
+reqs/env/.env
+
+# Keep examples only
+!reqs/env/.env.example
+
+# Ignore local/private deployment notes and scripts
+local/
+
+# Ignore SSL certificate/key material
+reqs/software/server/ssl/**/*.key
+reqs/software/server/ssl/**/*.csr
+reqs/software/server/ssl/**/*.crt
+reqs/software/server/ssl/**/*.pem
+
+# Keep SSL folder structure
+!reqs/software/server/ssl/
+!reqs/software/server/ssl/certs/
+!reqs/software/server/ssl/private/
+!reqs/software/server/ssl/**/.gitkeep
+
+# Ignore history files
+.history/
+
+# Temporary, backup and cache files
+*.tmp
+*.log
+*.swp
+*.swo
+cache/
+backups/
+
+# Difference files
+*.diff
+diff.*
+
+# Preview images for time being
+reqs/website/assets/imgs/preview/*
+
+# Ignore server logs but keep directory
+reqs/software/server/logs/*
+!reqs/software/server/logs/.gitkeep
+
+# Ignore project commiter script
+commiter.sh
