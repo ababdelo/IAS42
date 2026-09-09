@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafa;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .email-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 45px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.100);
+        }
+        .logo-section { text-align: center; margin-bottom: 35px; }
+        .logo-section img { width: 75px; height: auto; margin-bottom: 12px; }
+        .brand-name { font-size: 26px; font-weight: 700; color: #1a1a1a; margin:0; letter-spacing:-0.5px; }
+        .greeting { font-size: 17px; color: #1a1a1a; margin-bottom:20px; font-weight:600; }
+        .message { font-size:16px; color:#555; margin-bottom:25px; line-height:1.7; }
+        .message a, .user-message-meta a { color:#94c80b; text-decoration:none; font-weight:600; transition:color 0.2s; }
+        .message a:hover, .user-message-meta a:hover { color:#7da417; text-decoration:underline; }
+        .highlight { color:#1a1a1a; font-weight:700; }
+        .user-message-box { background:#f8fbff; border-radius:8px; padding:25px; margin-bottom:25px; color:#333; font-size:15px; line-height:1.6; }
+        .user-message-meta { margin-bottom:15px; padding-bottom:15px; border-bottom:1px dashed #94c80b; }
+        .user-message-text { white-space:pre-wrap; }
+        .section-title { font-size:14px; color:#1a1a1a; font-weight:700; margin:30px 0 15px; text-transform:uppercase; letter-spacing:0.5px; }
+        .separator { border:none; border-top:1px solid #eee; margin:30px 0; }
+        .btn-container { text-align:center; margin:35px 0; }
+        .btn { display:inline-block; padding:14px 28px; border-radius:8px; text-decoration:none !important; font-weight:600; font-size:16px; color:#ffffff !important; background-color:#94c80b; box-shadow:0 4px 6px rgba(0,0,0,0.06); transition:background-color 0.2s; }
+        .btn:hover { background-color:#7da417; }
+        .footer { text-align:center; margin-top:35px; }
+        .signature { font-size:15px; color:#777; margin-top:30px; line-height:1.6; }
+        .copyright { font-size:13px; color:#a0a0a0; margin-top:15px; }
+        @media only screen and (max-width:600px) {
+            .email-container { padding:35px 25px; border-radius:0; }
+            .btn { width:100%; box-sizing:border-box; }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="logo-section">
+            <img src="cid:logo" alt="{{wbstname}} Logo">
+            <h1 class="brand-name">{{wbstname}}</h1>
+        </div>
+        <p class="greeting">New Contact Inquiry</p>
+        <p class="message">You have received a new message from the contact form on the {{wbstname}} platform. Here are the details:</p>
+        <div class="user-message-box">
+            <div class="user-message-meta">
+                <span class="highlight">Sender:</span> {{senderName}}<br>
+                <span class="highlight">Email:</span> <a href="mailto:{{senderEmail}}">{{senderEmail}}</a><br>
+                <span class="highlight">Subject:</span> {{userSubject}}
+            </div>
+            <div class="user-message-text"><span class="highlight">Message:</span><br>{{userMessage}}</div>
+        </div>
+        <div class="separator"></div>
+        <div class="btn-container">
+            <a href="mailto:{{senderEmail}}?subject=Re:%20{{userSubject}}" class="btn">Reply to {{senderEmail}}</a>
+        </div>
+        <div class="footer">
+            <p class="signature">Best regards,<br>The {{wbstname}} Support Team</p>
+            <p class="copyright">© {{date}} {{wbstname}}. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
