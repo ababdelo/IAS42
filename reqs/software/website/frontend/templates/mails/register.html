@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" dir="{{dir}}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafa;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .email-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 45px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.100);
+            text-align: left;
+        }
+
+        .email-container[dir="rtl"] {
+            text-align: right;
+        }
+
+        .email-container[dir="rtl"] .logo-section,
+        .email-container[dir="rtl"] .btn-container,
+        .email-container[dir="rtl"] .footer {
+            text-align: center;
+        }
+
+        .email-container[dir="rtl"] .message,
+        .email-container[dir="rtl"] .greeting,
+        .email-container[dir="rtl"] .section-title {
+            text-align: right;
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo-section img {
+            width: 75px;
+            height: auto;
+            margin-bottom: 12px;
+        }
+
+        .brand-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+
+        .greeting {
+            font-size: 17px;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .message a {
+            color: #94c80b;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .message a:hover {
+            color: #7da417;
+        }
+
+        .highlight {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 35px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none !important;
+            font-weight: 600;
+            font-size: 16px;
+            color: #ffffff !important;
+            background-color: #94c80b;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .btn:hover {
+            background-color: #7da417;
+        }
+
+        .code-container {
+            background: #f8fbff;
+            border: 2px dashed #94c80b;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .code {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: 14px;
+            color: #94c80b;
+            margin: 0;
+        }
+
+        .section-title {
+            font-size: 14px;
+            color: #1a1a1a;
+            font-weight: 700;
+            margin: 30px 0 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .separator {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 30px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .signature {
+            font-size: 15px;
+            color: #777;
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+
+        .copyright {
+            font-size: 13px;
+            color: #a0a0a0;
+            margin-top: 15px;
+        }
+
+        @media only screen and (max-width:600px) {
+            .email-container {
+                padding: 35px 25px;
+                border-radius: 0;
+            }
+
+            .code {
+                font-size: 32px;
+                letter-spacing: 8px;
+            }
+
+            .btn {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container" dir="{{dir}}" style="text-align: {{textAlign}}; direction: {{dir}};">
+        <div class="logo-section">
+            <img src="cid:logo" alt="{{wbstname}} Logo">
+            <h1 class="brand-name">{{wbstname}}</h1>
+        </div>
+        <p class="greeting">{{email.register.greeting}}</p>
+        <p class="message">{{email.register.body}}</p>
+        <div class="code-container">
+            <div class="code">{{otpToken}}</div>
+        </div>
+        <p class="message">{{email.register.expiry}}</p>
+        <div class="separator"></div>
+        <p class="section-title">{{email.register.help}}</p>
+        <p class="message">{{email.register.ignore}}</p>
+        <div class="footer">
+            <p class="signature">{{email.register.signature}}</p>
+            <p class="copyright">{{email.register.copyright}}</p>
+        </div>
+    </div>
+</body>
+
+</html>
