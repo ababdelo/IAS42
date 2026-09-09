@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" dir="{{dir}}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafa;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .email-container {
+            max-width: 750px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px 45px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.100);
+            text-align: left;
+        }
+        .email-container[dir="rtl"] {
+            text-align: right !important;
+            direction: rtl;
+        }
+        .email-container[dir="rtl"] .logo-section,
+        .email-container[dir="rtl"] .btn-container,
+        .email-container[dir="rtl"] .footer {
+            text-align: center !important;
+        }
+        .email-container[dir="rtl"] .message,
+        .email-container[dir="rtl"] .greeting,
+        .email-container[dir="rtl"] .section-title {
+            text-align: right !important;
+        }
+        .logo-section { text-align:center; margin-bottom:35px; }
+        .logo-section img { width:75px; height:auto; margin-bottom:12px; }
+        .brand-name { font-size:26px; font-weight:700; color:#1a1a1a; margin:0; letter-spacing:-0.5px; }
+        .greeting { font-size:17px; color:#1a1a1a; margin-bottom:20px; font-weight:600; }
+        .message { font-size:16px; color:#555; margin-bottom:25px; line-height:1.7; }
+        .message a { color:#94c80b; text-decoration:underline; font-weight:600; }
+        .message a:hover { color:#7da417; }
+        .highlight { color:#1a1a1a; font-weight:700; }
+        .btn-container { text-align:center; margin:35px 0; }
+        .btn { display:inline-block; padding:14px 28px; border-radius:8px; text-decoration:none !important; font-weight:600; font-size:16px; color:#ffffff !important; background-color:#94c80b; box-shadow:0 4px 6px rgba(0,0,0,0.06); }
+        .btn:hover { background-color:#7da417; }
+        .status-title { text-align:center; font-size:20px; font-weight:700; margin-bottom:25px; letter-spacing:0.2px; }
+        .text-orange { color:#94c80b; }
+        .section-title { font-size:14px; color:#1a1a1a; font-weight:700; margin:30px 0 10px; text-transform:uppercase; letter-spacing:0.5px; }
+        .separator { border:none; border-top:1px solid #eee; margin:30px 0; }
+        .footer { text-align:center; margin-top:35px; }
+        .signature { font-size:15px; color:#777; margin-top:30px; line-height:1.6; }
+        .copyright { font-size:13px; color:#a0a0a0; margin-top:15px; }
+        @media only screen and (max-width:600px) {
+            .email-container { padding:35px 25px; border-radius:0; }
+            .btn { width:100%; box-sizing:border-box; }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container" dir="{{dir}}" style="text-align: {{textAlign}}; direction: {{dir}};">
+        <div class="logo-section">
+            <img src="cid:logo" alt="{{wbstname}} Logo">
+            <h1 class="brand-name">{{wbstname}}</h1>
+        </div>
+        <h2 class="status-title text-orange">{{email.forgot.title}}</h2>
+        <p class="greeting">{{email.forgot.greeting}}</p>
+        <p class="message">{{email.forgot.body}}</p>
+        <div class="btn-container">
+            <a href="{{resetUrl}}" class="btn">{{email.forgot.button}}</a>
+        </div>
+        <p class="message">{{email.forgot.expiry}}</p>
+        <div class="separator"></div>
+        <p class="section-title">{{email.forgot.ignore_title}}</p>
+        <p class="message">{{email.forgot.ignore}}</p>
+        <div class="footer">
+            <p class="signature">{{email.forgot.signature}}</p>
+            <p class="copyright">{{email.forgot.copyright}}</p>
+        </div>
+    </div>
+</body>
+</html>
