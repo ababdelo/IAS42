@@ -1,0 +1,43 @@
+{
+  "app_title": "Intelligent Agriculture System",
+  "app_subtitle": "Your Smart Assistant",
+  "search": "Search...",
+  "export_data": "Export Data",
+  "music": "Music",
+  "theme": {
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "developer": "Developer",
+  "rights": "IAS42. All rights reserved.",
+  "copied": "Copied!",
+  "sidebar": {
+    "general": "GENERAL",
+    "dashboard": "Dashboard",
+    "fields": "Fields",
+    "analytics": "Analytics",
+    "history": "History",
+    "notifications": "Notifications",
+    "preferences": "PREFERENCES",
+    "profile": "Profile",
+    "settings": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "logout": "Log Out"
+  },
+  "languages": {
+    "en": "English",
+    "fr": "French",
+    "es": "Spanish",
+    "ar": "Arabic"
+  },
+  "chatbot": {
+    "title": "IAS42 Assistant",
+    "status": "Online",
+    "placeholder": "Ask about your crops, soil, sensors...",
+    "welcome": "Hello! I am your IAS42 agricultural assistant. How can I help you manage your crops and sensor data today?",
+    "suggest_irrigation": "Check irrigation status",
+    "suggest_soil": "Analyze soil moisture",
+    "suggest_weather": "Weather forecast"
+  }
+}
