@@ -1,0 +1,266 @@
+@import url("https://fonts.googleapis.com/css2?family=Gugi&display=swap");
+
+:root {
+  --toast-success: #51bd12;
+  --toast-error: #e24d4c;
+  --toast-warning: #e9bd0c;
+  --toast-info: #3498db;
+
+  --toast-bg: #ffffff;
+  --toast-text: #506274;
+  --toast-close: #aeb0d7;
+  --toast-close-hover: #506274;
+  --toast-shadow: rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme {
+  --toast-bg: #2f2f2f;
+  --toast-text: hsl(228, 12%, 75%);
+  --toast-close: hsl(228, 12%, 62%);
+  --toast-close-hover: hsl(228, 18%, 95%);
+  --toast-shadow: rgba(0, 0, 0, 0.45);
+}
+
+/* ======================================================== */
+/*  DEFAULT LTR LAYOUT (English, French, Spanish)           */
+/*  Sidebar is on the Left -> Notifications on the Right    */
+/* ======================================================== */
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px; /* Switched to right */
+  left: auto;
+  z-index: 999999;
+  list-style: none;
+  direction: ltr;
+}
+
+.notifications.nvsdbr {
+  position: fixed;
+  top: 132px;
+  right: 20px; /* Switched to right */
+  left: auto;
+  z-index: 999999;
+}
+
+.toast {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  width: 450px;
+  padding: 16px;
+  margin-bottom: 10px;
+  background: var(--toast-bg);
+  border-radius: 5px;
+  box-shadow: 0 0 10px var(--toast-shadow);
+  
+  /* Default animation for LTR (coming from the right) */
+  animation: slideInRight 0.3s forwards;
+  
+  transition:
+    transform 0.3s,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+  font-family: "Gugi", sans-serif;
+  letter-spacing: 0.5px;
+  font-size: medium;
+}
+
+.toast.hide {
+  /* Default hide animation for LTR (exiting to the right) */
+  animation: slideOutRight 0.3s forwards;
+}
+
+/* ======================================================== */
+/*  RTL LAYOUT OVERRIDES (Arabic)                           */
+/*  Sidebar is on the Right -> Notifications on the Left    */
+/* ======================================================== */
+[dir="rtl"] .notifications,
+[dir="rtl"] .notifications.nvsdbr {
+  left: 20px;
+  right: auto;
+}
+
+[dir="rtl"] .notifications .toast {
+  direction: rtl;
+  /* Override animation for RTL (coming from the left) */
+  animation: slideInLeft 0.3s forwards;
+}
+
+[dir="rtl"] .toast.hide {
+  /* Override hide animation for RTL (exiting to the left) */
+  animation: slideOutLeft 0.3s forwards;
+}
+
+/* ======================================================== */
+/*  TOAST INTERNAL STYLES (Using Logical Properties)        */
+/* ======================================================== */
+.toast .column {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  /* Replaces padding-right, adapts automatically to LTR/RTL */
+  padding-inline-end: 10px; 
+  line-height: 1.6;
+}
+
+.toast .column i {
+  display: inline-block;
+  font-size: 1.25rem;
+  /* Replaces margin-right */
+  margin-inline-end: 10px;
+  color: currentColor;
+  line-height: 1;
+  vertical-align: -0.08em;
+}
+
+.toast .column .type {
+  display: inline;
+  /* Replaces margin-right */
+  margin-inline-end: 5px;
+  color: currentColor;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.toast .column .colon {
+  display: inline;
+  /* Replaces margin-right */
+  margin-inline-end: 5px;
+  color: var(--toast-text);
+  white-space: nowrap;
+}
+
+.toast .column .description {
+  display: inline;
+  color: var(--toast-text);
+  line-height: 1.6;
+  /* Replaces text-align: left, adapts automatically */
+  text-align: start; 
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.toast .close-btn {
+  flex: 0 0 auto;
+  align-self: center;
+  cursor: pointer;
+  /* Replaces padding-left */
+  padding-inline-start: 10px;
+  font-size: 1.25rem;
+  color: var(--toast-close);
+  transition: color 0.2s;
+}
+
+.toast .close-btn:hover {
+  color: var(--toast-close-hover);
+}
+
+.toast.success { color: var(--toast-success); }
+.toast.error   { color: var(--toast-error); }
+.toast.warning { color: var(--toast-warning); }
+.toast.info    { color: var(--toast-info); }
+
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: currentColor;
+  animation: progressBar 5s linear forwards;
+}
+
+/* ======================================================== */
+/*  KEYFRAMES (Separated for Left and Right sliding)        */
+/* ======================================================== */
+
+/* Slide from the Right (LTR) */
+@keyframes slideInRight {
+  0% { transform: translateX(100%); }
+  40% { transform: translateX(-5%); }
+  80% { transform: translateX(0%); }
+  100% { transform: translateX(-10px); }
+}
+
+@keyframes slideOutRight {
+  0% { transform: translateX(-10px); }
+  40% { transform: translateX(0%); }
+  80% { transform: translateX(-5%); }
+  100% { transform: translateX(calc(100% + 20px)); }
+}
+
+/* Slide from the Left (RTL) */
+@keyframes slideInLeft {
+  0% { transform: translateX(-100%); }
+  40% { transform: translateX(5%); }
+  80% { transform: translateX(0%); }
+  100% { transform: translateX(10px); }
+}
+
+@keyframes slideOutLeft {
+  0% { transform: translateX(10px); }
+  40% { transform: translateX(0%); }
+  80% { transform: translateX(5%); }
+  100% { transform: translateX(calc(-100% - 20px)); }
+}
+
+@keyframes progressBar {
+  0% { width: 100%; }
+  100% { width: 0; }
+}
+
+/* ======================================================== */
+/*  MOBILE RESPONSIVENESS                                   */
+/* ======================================================== */
+@media screen and (max-width: 600px) {
+  .notifications,
+  .notifications.nvsdbr,
+  [dir="rtl"] .notifications,
+  [dir="rtl"] .notifications.nvsdbr {
+    top: calc(var(--header-height, 3.5rem) + 1.5rem);
+    left: 0.75rem;
+    right: 0.75rem;
+  }
+
+  .toast {
+    width: 100%;
+    padding: 13px;
+    border-radius: 5px;
+  }
+
+  .toast .column .type,
+  .toast .column .colon,
+  .toast .column .description {
+    font-size: 0.85rem;
+  }
+
+  .toast .column i,
+  .toast .close-btn {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .notifications,
+  .notifications.nvsdbr,
+  [dir="rtl"] .notifications,
+  [dir="rtl"] .notifications.nvsdbr {
+    top: calc(var(--header-height, 3.5rem) + 1.1rem);
+    left: 0.55rem;
+    right: 0.55rem;
+  }
+
+  .toast {
+    padding: 12px;
+  }
+
+  .toast .column .type,
+  .toast .column .colon,
+  .toast .column .description {
+    font-size: 0.78rem;
+  }
+}
