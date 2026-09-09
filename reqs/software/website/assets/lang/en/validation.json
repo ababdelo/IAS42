@@ -1,0 +1,26 @@
+{
+  "required": "This field is required.",
+  "email": "Please enter a valid email address.",
+  "password": {
+    "length": "Password must be at least 8 characters long.",
+    "uppercase": "Password must contain at least one uppercase letter.",
+    "lowercase": "Password must contain at least one lowercase letter.",
+    "digit": "Password must contain at least one digit.",
+    "special": "Password must include at least one special character."
+  },
+  "username": {
+    "length": "Username must be at least 3 characters long.",
+    "characters": "Username can only contain letters, numbers, and underscores."
+  },
+  "firstname": {
+    "length": "First name must be at least 2 characters.",
+    "characters": "First name can only contain letters, spaces, hyphens, and apostrophes."
+  },
+  "lastname": {
+    "length": "Last name must be at least 2 characters.",
+    "characters": "Last name can only contain letters, spaces, hyphens, and apostrophes."
+  },
+  "otp": "Please enter a valid 6-digit code.",
+  "terms": "You must agree to the Terms of Use and Privacy Policy.",
+  "match": "Passwords do not match."
+}
