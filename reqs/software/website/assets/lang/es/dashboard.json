@@ -1,0 +1,67 @@
+{
+  "title": "Panel",
+  "subtitle": "Hola. Este es el estado de tu sistema.",
+  "empty_state": "No hay datos.",
+  "weather": {
+    "title": "Clima Local",
+    "subtitle": "Telemetría de sensores en tiempo real",
+    "live": "En vivo",
+    "conditions": {
+      "storm": "Tormentoso",
+      "rainy": "Lluvioso",
+      "windy": "Ventoso",
+      "hot_dry": "Caluroso y Seco",
+      "hot_humid": "Caluroso y Húmedo",
+      "cool": "Fresco",
+      "clear": "Despejado"
+    }
+  },
+  "fields": {
+    "title": "Sectores Cultivados",
+    "subtitle": "Nodos de sensores activos y métricas",
+    "manage": "Gestionar",
+    "soil_moisture": "Humedad",
+    "ph_level": "Nivel de pH",
+    "nitrogen": "Nitrógeno",
+    "phosphorus": "Fósforo",
+    "potassium": "Potasio",
+    "pump_status": "Bomba",
+    "pump_watering": "Regando",
+    "pump_stopped": "Detenida",
+    "status_healthy": "Saludable",
+    "status_attention": "Atención"
+  },
+  "water": {
+    "title": "Reserva de Agua",
+    "idle": "En espera",
+    "daily_usage": "Uso Diario",
+    "cycles": "Ciclos",
+    "today": "Hoy"
+  },
+  "events": {
+    "title": "Actividad en Vivo",
+    "item1": {
+      "title": "Riego Completado",
+      "desc": "El Sector Alfa recibió 45L."
+    },
+    "item2": {
+      "title": "Lluvia Detectada",
+      "desc": "Riego automático pausado."
+    },
+    "item3": {
+      "title": "Telemetría en Línea",
+      "desc": "Nodo-01 MQTT verificado."
+    }
+  },
+  "units": {
+    "celsius": "°C",
+    "kmh": "km/h",
+    "liters": "Litro(s)",
+    "mg_kg": "mg/kg"
+  },
+  "time": {
+    "mins_ago": "min",
+    "hr_ago": "h",
+    "hrs_ago": "h"
+  }
+}
