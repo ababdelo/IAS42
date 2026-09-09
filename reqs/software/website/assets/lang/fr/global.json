@@ -1,0 +1,43 @@
+{
+  "app_title": "Système Agricole",
+  "app_subtitle": "Votre Assistant",
+  "search": "Rechercher...",
+  "export_data": "Exporter",
+  "music": "Musique",
+  "theme": {
+    "light": "Clair",
+    "dark": "Sombre"
+  },
+  "developer": "Développeur",
+  "rights": "IAS42. Tous droits réservés.",
+  "copied": "Copié !",
+  "sidebar": {
+    "general": "GÉNÉRAL",
+    "dashboard": "Tableau de bord",
+    "fields": "Champs",
+    "analytics": "Analyses",
+    "history": "Historique",
+    "notifications": "Notifications",
+    "preferences": "PRÉFÉRENCES",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "language": "Langue",
+    "theme": "Thème",
+    "logout": "Déconnexion"
+  },
+  "languages": {
+    "en": "Anglais",
+    "fr": "Français",
+    "es": "Espagnol",
+    "ar": "Arabe"
+  },
+  "chatbot": {
+    "title": "Assistant IAS42",
+    "status": "En ligne",
+    "placeholder": "Posez une question sur vos cultures, sol, capteurs...",
+    "welcome": "Bonjour ! Je suis votre assistant agricole IAS42. Comment puis-je vous aider aujourd'hui ?",
+    "suggest_irrigation": "Vérifier l'irrigation",
+    "suggest_soil": "Analyser l'humidité du sol",
+    "suggest_weather": "Prévisions météo"
+  }
+}
