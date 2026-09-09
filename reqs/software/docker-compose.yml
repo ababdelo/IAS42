@@ -1,0 +1,75 @@
+# =========================================================================== #
+#                       Author: Abderrahmane Abdelouafi                       #
+#                        File Name: docker-compose.yml                        #
+#                    Creation Date: August 11, 2026 14:00 AM                  #
+#                    Last Updated: August 12, 2026 10:30 AM                   #
+#                        Source Language: dockercompose                       #
+#                                                                             #
+#                          --- Code Description ---                           #
+#     Docker Compose file for ias42. The active runtime config is loaded      #
+#   from ../env/.env, which is generated from .env.base + .env.dev/.env.prod. #
+# =========================================================================== #
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: ias42-mysql
+    env_file:
+      - ../env/.env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE_NAME}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d:ro
+    restart: on-failure
+    init: true
+    networks:
+      - ias42Net
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+
+  apache:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: ias42-apache
+    image: apache
+    env_file:
+      - ../env/.env
+    environment:
+      APP_ENV: ${APP_ENV:-dev}
+      WEBSITE_URL: ${WEBSITE_URL:-https://localhost}
+      APP_DOMAIN: ${APP_DOMAIN:-localhost}
+      APP_DOMAIN_ALIASES: ${APP_DOMAIN_ALIASES:-}
+      APP_TIMEZONE: ${APP_TIMEZONE:-Africa/Casablanca}
+    volumes:
+      - ./website:/var/www/html
+      - ../env/.env:/var/www/env/.env:ro
+      - ./server/ssl:/etc/apache2/ssl
+      - ./server/logs:/var/www/logs
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: on-failure
+    init: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ias42Net
+
+networks:
+  ias42Net:
+    name: ias42Net
+    driver: bridge
+
+volumes:
+  mysql-data:
