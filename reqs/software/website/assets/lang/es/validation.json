@@ -1,0 +1,26 @@
+{
+  "required": "Este campo es obligatorio.",
+  "email": "Por favor, introduce una dirección de correo electrónico válida.",
+  "password": {
+    "length": "La contraseña debe tener al menos 8 caracteres.",
+    "uppercase": "La contraseña debe contener al menos una letra mayúscula.",
+    "lowercase": "La contraseña debe contener al menos una letra minúscula.",
+    "digit": "La contraseña debe contener al menos un dígito.",
+    "special": "La contraseña debe incluir al menos un carácter especial."
+  },
+  "username": {
+    "length": "El nombre de usuario debe tener al menos 3 caracteres.",
+    "characters": "El nombre de usuario solo puede contener letras, números y guiones bajos."
+  },
+  "firstname": {
+    "length": "El nombre debe tener al menos 2 caracteres.",
+    "characters": "El nombre solo puede contener letras, espacios, guiones y apóstrofes."
+  },
+  "lastname": {
+    "length": "El apellido debe tener al menos 2 caracteres.",
+    "characters": "El apellido solo puede contener letras, espacios, guiones y apóstrofes."
+  },
+  "otp": "Por favor, introduce un código de 6 dígitos válido.",
+  "terms": "Debes aceptar los Términos de uso y la Política de privacidad.",
+  "match": "Las contraseñas no coinciden."
+}
