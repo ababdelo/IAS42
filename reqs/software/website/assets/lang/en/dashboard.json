@@ -1,0 +1,78 @@
+{
+  "title": "Dashboard",
+  "subtitle": "Welcome back. Here is your system status.",
+  "empty_state": "No data available yet.",
+  "weather": {
+    "title": "Local Field Weather",
+    "subtitle": "Real-time local sensor telemetry",
+    "live": "Live",
+    "conditions": {
+      "storm": "Storm-like",
+      "rainy": "Rainy",
+      "windy": "Windy",
+      "hot_dry": "Hot & Dry",
+      "hot_humid": "Hot & Humid",
+      "cool": "Cool",
+      "clear": "Clear"
+    }
+  },
+  "fields": {
+    "title": "Cultivated Sectors",
+    "subtitle": "Active sensor nodes & soil metrics",
+    "manage": "Manage",
+    "soil_moisture": "Moisture",
+    "ph_level": "pH Level",
+    "nitrogen": "Nitrogen",
+    "phosphorus": "Phosphorus",
+    "potassium": "Potassium",
+    "pump_status": "Pump",
+    "pump_watering": "Watering",
+    "pump_stopped": "Stopped",
+    "status_healthy": "Healthy",
+    "status_attention": "Attention"
+  },
+  "crops": {
+    "tomato": "Tomato",
+    "corn": "Corn",
+    "potato": "Potato"
+  },
+  "ai": {
+    "disease": "AI Disease Scan",
+    "water": "AI Water Req.",
+    "healthy": "No Disease Detected",
+    "blight": "Early Blight Risk"
+  },
+  "water": {
+    "title": "Water Reserve",
+    "idle": "Idle",
+    "daily_usage": "Daily Usage",
+    "cycles": "Cycles",
+    "today": "Today"
+  },
+  "events": {
+    "title": "Live Activity",
+    "item1": {
+      "title": "Irrigation Complete",
+      "desc": "Sector Alpha delivered 45L."
+    },
+    "item2": {
+      "title": "Rain Detected",
+      "desc": "Automated irrigation paused."
+    },
+    "item3": {
+      "title": "Telemetry Online",
+      "desc": "Node-01 MQTT verified."
+    }
+  },
+  "units": {
+    "celsius": "°C",
+    "kmh": "km/h",
+    "liters": "Litre(s)",
+    "mg_kg": "mg/kg"
+  },
+  "time": {
+    "mins_ago": "mins ago",
+    "hr_ago": "hr ago",
+    "hrs_ago": "hrs ago"
+  }
+}
