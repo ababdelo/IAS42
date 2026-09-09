@@ -1,0 +1,67 @@
+{
+  "title": "Tableau de bord",
+  "subtitle": "Bonjour. Voici l'état de votre système.",
+  "empty_state": "Aucune donnée.",
+  "weather": {
+    "title": "Météo Locale",
+    "subtitle": "Télémétrie en temps réel des capteurs",
+    "live": "En direct",
+    "conditions": {
+      "storm": "Orageux",
+      "rainy": "Pluvieux",
+      "windy": "Venteux",
+      "hot_dry": "Chaud & Sec",
+      "hot_humid": "Chaud & Humide",
+      "cool": "Frais",
+      "clear": "Dégagé"
+    }
+  },
+  "fields": {
+    "title": "Secteurs Cultivés",
+    "subtitle": "Nœuds de capteurs actifs et métriques",
+    "manage": "Gérer",
+    "soil_moisture": "Humidité",
+    "ph_level": "Niveau pH",
+    "nitrogen": "Azote",
+    "phosphorus": "Phosphore",
+    "potassium": "Potassium",
+    "pump_status": "Pompe",
+    "pump_watering": "Irrigation",
+    "pump_stopped": "Arrêtée",
+    "status_healthy": "Sain",
+    "status_attention": "Attention"
+  },
+  "water": {
+    "title": "Réserve d'Eau",
+    "idle": "En attente",
+    "daily_usage": "Conso. Quotidienne",
+    "cycles": "Cycles",
+    "today": "Aujourd'hui"
+  },
+  "events": {
+    "title": "Activité en Direct",
+    "item1": {
+      "title": "Irrigation Terminée",
+      "desc": "Le Secteur Alpha a reçu 45L."
+    },
+    "item2": {
+      "title": "Pluie Détectée",
+      "desc": "Irrigation automatisée en pause."
+    },
+    "item3": {
+      "title": "Télémétrie en Ligne",
+      "desc": "Nœud-01 MQTT vérifié."
+    }
+  },
+  "units": {
+    "celsius": "°C",
+    "kmh": "km/h",
+    "liters": "Litre(s)",
+    "mg_kg": "mg/kg"
+  },
+  "time": {
+    "mins_ago": "min",
+    "hr_ago": "h",
+    "hrs_ago": "h"
+  }
+}
