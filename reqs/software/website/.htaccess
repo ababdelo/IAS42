@@ -1,0 +1,78 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    Options -Indexes
+
+    # Block internal folders (both direct and clean URL aliases)
+    RewriteRule ^(backend/utils|utils|backend/includes|includes|backend/config|config|frontend/components|components|frontend/templates|templates)(/.*)?$ - [F,L]
+
+    # Block common scanner/probe paths
+    RewriteRule ^(wp-admin|wp-login(\.php)?|wp-content|wp-includes|wordpress|xmlrpc(\.php)?).*$ - [F,L]
+
+    # Block dependency folder
+    RewriteRule ^vendor/.*$ - [F,L]
+
+    # Block direct backend access from the browser
+    RewriteCond %{THE_REQUEST} \s/+backend/ [NC]
+    RewriteRule ^backend/ - [F,L]
+
+    # Block sensitive project files
+    RewriteRule ^(composer\.(json|lock)|package(-lock)?\.json|Dockerfile|docker-compose\.ya?ml|Makefile|\.env).*$ - [F,L]
+
+    # Block sensitive file extensions
+    RewriteRule (^|/).*\.(env|ini|log|sql|bak|old|backup|zip|tar|gz|7z|rar|pem|key|crt)$ - [F,L]
+
+    # Block hidden dotfiles, except .well-known
+    RewriteRule (^|/)\.(?!well-known/).*$ - [F,L]
+
+    # Block directory access without index file
+    RewriteCond %{REQUEST_URI} !^/$
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteCond %{REQUEST_FILENAME}/index.php !-f
+    RewriteCond %{REQUEST_FILENAME}/index.html !-f
+    RewriteRule ^.*$ - [F,L]
+
+    # Redirect direct .php requests to clean URLs (EXCEPT FOR POST REQUESTS)
+    RewriteCond %{REQUEST_METHOD} !POST
+    RewriteCond %{REQUEST_URI} !^/frontend/errors/handler\.php$ [NC]
+    RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s([^.]+)\.php [NC]
+    RewriteRule ^ %1 [R=301,L]
+
+    # Home page
+    RewriteRule ^$ index.php [L]
+
+    # Serve existing safe files directly
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Frontend routing
+    RewriteCond frontend/$1.php -f
+    RewriteRule ^(.*)$ frontend/$1.php [L]
+
+    RewriteRule ^auth/authenticate/?$ frontend/auth/authenticate.php [L,QSA]
+    RewriteRule ^auth/recover/?$ frontend/auth/recover.php [L,QSA]
+    RewriteRule ^auth/setup/?$ frontend/auth/setup.php [L,QSA]
+
+    RewriteCond frontend/policies/$1.php -f
+    RewriteRule ^(.*)$ frontend/policies/$1.php [L]
+
+    # Backend routing
+    RewriteCond backend/$1.php -f
+    RewriteRule ^(.*)$ backend/$1.php [L]
+
+    RewriteCond backend/$1 -f
+    RewriteRule ^(.*)$ backend/$1 [L]
+
+    # Prevent error handler loop
+    RewriteCond %{REQUEST_URI} ^/frontend/errors/handler\.php [NC]
+    RewriteRule ^ - [L]
+</IfModule>
+
+ErrorDocument 400 /frontend/errors/handler.php
+ErrorDocument 401 /frontend/errors/handler.php
+ErrorDocument 403 /frontend/errors/handler.php
+ErrorDocument 404 /frontend/errors/handler.php
+ErrorDocument 408 /frontend/errors/handler.php
+ErrorDocument 500 /frontend/errors/handler.php
+ErrorDocument 503 /frontend/errors/handler.php
