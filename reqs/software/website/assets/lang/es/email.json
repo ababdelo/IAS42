@@ -1,0 +1,62 @@
+{
+  "register": {
+    "greeting": "Hola, {{fstname}}:",
+    "body": "Gracias por unirte a {{wbstname}}, el sistema agrícola inteligente. Confirma tu registro ingresando el código de seguridad a continuación en la <a href=\"{{verifyUrl}}\">página de verificación</a>.",
+    "code_label": "Tu código de seguridad:",
+    "expiry": "Este código es válido por {{expiryMinutes}} minutos. Si expira, puedes solicitar uno nuevo <a href=\"{{requestUrl}}\">aquí</a>.",
+    "help": "Necesitas asistencia?",
+    "ignore": "Si no realizaste esta solicitud, puedes ignorar este correo. Si tienes dudas, contacta al <a href=\"mailto:{{sprtmail}}\">soporte técnico</a>.",
+    "signature": "Saludos cordiales,<br>El equipo de seguridad de {{wbstname}}",
+    "copyright": "© {{date}} {{wbstname}}. Todos los derechos reservados."
+  },
+  "forgot": {
+    "greeting": "Hola, {{fstname}}:",
+    "title": "Restablecimiento de contraseña",
+    "body": "Hemos recibido una solicitud para restablecer la contraseña de tu cuenta en {{wbstname}}. Haz clic en el botón a continuación para configurar una nueva contraseña.",
+    "button": "Restablecer contraseña",
+    "expiry": "Este enlace es de un solo uso y será válido durante {{expiryHours}} hora(s). Pasado este tiempo, deberás realizar una nueva solicitud.",
+    "ignore_title": "No solicitaste esto?",
+    "ignore": "Si no fuiste tú, ignora este mensaje. Tu cuenta sigue estando segura. Si tienes alguna preocupación, contacta al <a href=\"mailto:{{sprtmail}}\">soporte técnico</a>.",
+    "signature": "Saludos cordiales,<br>El equipo de seguridad de {{wbstname}}",
+    "copyright": "© {{date}} {{wbstname}}. Todos los derechos reservados."
+  },
+  "request": {
+    "greeting": "Hola, {{fstname}}:",
+    "title": "Nuevo código de verificación",
+    "body": "Has solicitado un nuevo código para tu cuenta de {{wbstname}}. Utilízalo en la <a href=\"{{verifyUrl}}\">página de verificación</a>.",
+    "code_label": "Tu código de seguridad:",
+    "expiry": "Este código expirará en {{expiryMinutes}} minutos.",
+    "ignore_title": "No solicitaste esto?",
+    "ignore": "Si no pediste este código, ignora este correo. Para obtener ayuda, contacta al <a href=\"mailto:{{sprtmail}}\">soporte técnico</a>.",
+    "signature": "Saludos cordiales,<br>El equipo de seguridad de {{wbstname}}",
+    "copyright": "© {{date}} {{wbstname}}. Todos los derechos reservados."
+  },
+  "verified": {
+    "greeting": "Te damos la bienvenida a {{wbstname}}, {{fstname}}!",
+    "title": "Cuenta verificada con éxito",
+    "body": "Tu cuenta ha sido autenticada. Ahora tienes acceso completo a nuestra plataforma de agricultura inteligente.",
+    "body2": "Supervisa tus parcelas, analiza los datos de tus cultivos y toma decisiones fundamentadas directamente desde tu panel de control.",
+    "button": "Ir al panel de control",
+    "signature": "Saludos cordiales,<br>El equipo de {{wbstname}}",
+    "copyright": "© {{date}} {{wbstname}}. Todos los derechos reservados."
+  },
+  "oauth_verified": {
+    "greeting": "Te damos la bienvenida a {{wbstname}}, {{fstname}}!",
+    "title": "Cuenta creada con éxito",
+    "body": "Tu cuenta ha sido generada a través de {{provider}}. Ahora estás conectado de forma segura y listo para explorar la plataforma agrícola.",
+    "body2": "Accede a tu panel para monitorear el estado de tus cultivos y analizar tendencias en tiempo real.",
+    "button": "Ir al panel de control",
+    "signature": "Saludos cordiales,<br>El equipo de {{wbstname}}",
+    "copyright": "© {{date}} {{wbstname}}. Todos los derechos reservados."
+  },
+  "reseted": {
+    "greeting": "Hola, {{fstname}}:",
+    "title": "Contraseña actualizada",
+    "body": "La contraseña de tu cuenta de {{wbstname}} ha sido modificada exitosamente. Ya puedes iniciar sesión con tus nuevas credenciales.",
+    "button": "Iniciar sesión en el panel",
+    "security": "Alerta de seguridad",
+    "security_body": "Si no realizaste este cambio, informa inmediatamente a nuestro <a href=\"mailto:{{sprtmail}}\">equipo de soporte</a>.",
+    "signature": "Saludos cordiales,<br>El equipo de seguridad de {{wbstname}}",
+    "copyright": "© {{date}} {{wbstname}}. Todos los derechos reservados."
+  }
+}
