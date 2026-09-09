@@ -1,0 +1,31 @@
+{
+  "dashboard": {
+    "title": "Tableau de bord",
+    "subtitle": "Bonjour. Voici l'état de votre système.",
+    "empty_state": "Aucune donnée."
+  },
+  "analytics": {
+    "title": "Analyses",
+    "subtitle": "Cultures, eau et environnement.",
+    "empty_state": "En attente des capteurs..."
+  },
+  "history": {
+    "title": "Historique",
+    "subtitle": "Événements et actions automatiques."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "mark_all_read": "Tout marquer lu",
+    "empty_state": "Aucune nouvelle notification."
+  },
+  "profile": {
+    "title": "Profil",
+    "personal_info": "Données personnelles",
+    "update_btn": "Mettre à jour"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "preferences": "Préférences",
+    "save_btn": "Enregistrer"
+  }
+}
