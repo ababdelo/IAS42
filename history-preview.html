@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Preview - History</title>
+  <link rel="stylesheet" href="theme-vars.css">
+  <link rel="stylesheet" href="content.css">
+</head>
+<body>
+
+<div class="header-title">
+  <h1>Activity History</h1>
+  <p>A complete log of events across your fields.</p>
+</div>
+
+<div class="history-filters">
+  <div class="filter-select-wrap">
+    <select id="fieldFilter" class="filter-select-lg">
+      <option value="all">All fields</option>
+      <option value="oasis">Oasis Farm</option>
+      <option value="zenata">Zenata Greenhouse</option>
+      <option value="atlas">Atlas Orchard</option>
+    </select>
+    <span class="select-chevron">▾</span>
+  </div>
+
+  <div class="filter-select-wrap">
+    <select id="typeFilter" class="filter-select-lg">
+      <option value="all">All event types</option>
+      <option value="irrigation">Irrigation</option>
+      <option value="alert">Alert</option>
+      <option value="temperature">Temperature</option>
+      <option value="update">Update</option>
+    </select>
+    <span class="select-chevron">▾</span>
+  </div>
+</div>
+
+<div id="historyContainer"></div>
+
+<script src="history.js"></script>
+</body>
+</html>
