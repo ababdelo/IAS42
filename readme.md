@@ -108,13 +108,18 @@ make monitor
 
 ## MQTT
 
-The ESP32 publishes sensor telemetry through MQTT and listens for pump control commands.
+The ESP32 publishes sensor telemetry through MQTT. The server-side MQTT bridge subscribes to each node telemetry topic and stores verified messages in MySQL.
 
-The firmware uses the following topics:
+The current telemetry topic pattern is:
 
 ```text
-ed42/ias/parcelle1/telemetry
-ed42/ias/parcelle1/control
+ias42/v1/nodes/<NODE_ID>/telemetry
+```
+
+For the current test node:
+
+```text
+ias42/v1/nodes/A84F92/telemetry
 ```
 
 ## Simulation
