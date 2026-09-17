@@ -30,7 +30,7 @@ $colorIndex = 1;
                     <a href="/dashboard" class="sidebar__link <?= isActive('dashboard', $currentPage) ?>">
                         <i class="ri-dashboard-line"></i><span data-i18n="global.sidebar.dashboard">Dashboard</span>
                     </a>
-                    <a href="/fields" class="sidebar__link <?= isActive('fields', $currentPage) ?>">
+                    <a href="/fields" class="sidebar__link <?= isActive('fields', $currentPage) ?: isActive('sectors', $currentPage) ?>">
                         <i class="ri-leaf-line"></i><span data-i18n="global.sidebar.fields">Fields</span>
                     </a>
                     <a href="/analytics" class="sidebar__link <?= isActive('analytics', $currentPage) ?>">
@@ -66,7 +66,7 @@ $colorIndex = 1;
                     <i class="fa-solid fa-language"></i>
                     <span class="lang-trigger-label" data-lang-label="trigger">Language</span>
                 </button>
-                
+
                 <div class="language-menu" id="language-menu" role="menu" hidden>
                     <button type="button" role="menuitemradio" data-lang="en" aria-checked="true">
                         <img src="/assets/imgs/flags/en.webp" alt="English Flag">

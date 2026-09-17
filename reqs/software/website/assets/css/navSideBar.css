@@ -656,8 +656,21 @@ body.dark-theme {
 
 @media screen and (min-width: 601px) and (max-width: 1024px) {
   .header__toggle {
-    visibility: hidden;
+    display: none;
     pointer-events: none;
+  }
+
+  .header__container {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .search-container {
+    max-width: 450px;
+    justify-self: start;
+  }
+
+  .header__right-actions {
+    min-width: max-content;
   }
 }
 
@@ -672,6 +685,21 @@ body.dark-theme {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     column-gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 855px) {
+  .header__container {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .search-container {
+    max-width: 450px;
+    justify-self: start;
+  }
+
+  .header__right-actions {
+    min-width: max-content;
   }
 }
 
