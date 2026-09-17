@@ -6,11 +6,14 @@
 #                        Source Language: dockercompose                       #
 #                                                                             #
 #                          --- Code Description ---                           #
-#     Docker Compose file for ias42. The active runtime config is loaded      #
-#   from ../env/.env, which is generated from .env.base + .env.dev/.env.prod. #
+#       Docker Compose file for ias42. This file defines the services,        #
+#  networks, and volumes required to run the application in a containerized   #
+#   environment. It specifies the configuration for each service, including   #
+# image names, build context, environment variables, ports, and dependencies. #
 # =========================================================================== #
 
 services:
+
   mysql:
     image: mysql:8.4
     container_name: ias42-mysql
@@ -25,12 +28,21 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./database:/docker-entrypoint-initdb.d:ro
-    restart: on-failure
+    restart: unless-stopped
     init: true
     networks:
       - ias42Net
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${MYSQL_ROOT_PASSWORD}" ]
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "127.0.0.1",
+          "-uroot",
+          "-p${MYSQL_ROOT_PASSWORD}"
+        ]
       interval: 10s
       retries: 5
       start_period: 30s
@@ -41,24 +53,52 @@ services:
       context: ./server
       dockerfile: Dockerfile
     container_name: ias42-apache
-    image: apache
+    image: ias42-php:8.4
     env_file:
       - ../env/.env
     environment:
-      APP_ENV: ${APP_ENV:-dev}
-      WEBSITE_URL: ${WEBSITE_URL:-https://localhost}
-      APP_DOMAIN: ${APP_DOMAIN:-localhost}
-      APP_DOMAIN_ALIASES: ${APP_DOMAIN_ALIASES:-}
+      APP_ENV: ${APP_ENV:-prod}
+      WEBSITE_URL: ${WEBSITE_URL:-https://ed42.dev}
+      APP_DOMAIN: ${APP_DOMAIN:-ed42.dev}
+      APP_DOMAIN_ALIASES: ${APP_DOMAIN_ALIASES:-www.ed42.dev}
       APP_TIMEZONE: ${APP_TIMEZONE:-Africa/Casablanca}
     volumes:
       - ./website:/var/www/html
       - ../env/.env:/var/www/env/.env:ro
-      - ./server/ssl:/etc/apache2/ssl
+      - ./server/ssl:/etc/apache2/ssl:ro
       - ./server/logs:/var/www/logs
     ports:
       - "80:80"
       - "443:443"
-    restart: on-failure
+    restart: unless-stopped
+    init: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - ias42Net
+
+  mqtt-bridge:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: ias42-php:8.4
+    container_name: ias42-mqtt-bridge
+    env_file:
+      - ../env/.env
+    environment:
+      CONTAINER_ROLE: bridge
+      APP_TIMEZONE: ${APP_TIMEZONE:-Africa/Casablanca}
+      MQTT_BROKER_HOST: ${MQTT_BROKER_HOST:-broker.hivemq.com}
+      MQTT_BROKER_PORT: ${MQTT_BROKER_PORT:-1883}
+      MQTT_BRIDGE_CLIENT_ID: ${MQTT_BRIDGE_CLIENT_ID:-IAS42_MQTT_BRIDGE}
+      MQTT_TELEMETRY_TOPIC: ${MQTT_TELEMETRY_TOPIC:-ias42/v1/nodes/+/telemetry}
+      MQTT_NODE_ONLINE_WINDOW: ${MQTT_NODE_ONLINE_WINDOW:-30}
+      MQTT_RECONNECT_DELAY: ${MQTT_RECONNECT_DELAY:-5}
+    volumes:
+      - ./website:/var/www/html
+      - ../env/.env:/var/www/env/.env:ro
+    restart: unless-stopped
     init: true
     depends_on:
       mysql:

@@ -17,21 +17,25 @@ SOFTWARE_DIR        := reqs/software
 HARDWARE_DIR        := reqs/hardware
 COMPOSE_FILE        := $(SOFTWARE_DIR)/docker-compose.yml
 ENV_FILE            := reqs/env/.env
+
 SELECTED_TARGET     := $(if $(filter hw sw both,$(word 2,$(MAKECMDGOALS))),$(word 2,$(MAKECMDGOALS)),sw)
 REBUILD_TARGET      := $(if $(filter hw sw both,$(word 2,$(MAKECMDGOALS))),$(word 2,$(MAKECMDGOALS)),)
 
 # SSL Paths
-SSL_CERTS_DIR       := $(SOFTWARE_DIR)/server/ssl/certs
-SSL_PRIVATE_DIR     := $(SOFTWARE_DIR)/server/ssl/private
+SSL_DIR             := $(SOFTWARE_DIR)/server/ssl
+SSL_CERTS_DIR       := $(SSL_DIR)/certs
+SSL_PRIVATE_DIR     := $(SSL_DIR)/private
+
 CERT_FILE           := $(SSL_CERTS_DIR)/server.crt
+CA_BUNDLE_FILE      := $(SSL_CERTS_DIR)/ca_bundle.crt
+FULLCHAIN_FILE      := $(SSL_CERTS_DIR)/fullchain.pem
+CSR_FILE            := $(SSL_CERTS_DIR)/server.csr
 KEY_FILE            := $(SSL_PRIVATE_DIR)/server.key
 
 # Colors for terminal output
 RESET       = \033[0m
 WHITE       = \033[1;37m
 GREY        = \033[1;90m
-BLACK       = \033[1;30m
-BROWN       = \033[1;38;5;88m
 ORANGE      = \033[1;38;5;208m
 YELLOW      = \033[1;33m
 RED         = \033[1;31m
@@ -42,6 +46,7 @@ MAGENTA     = \033[1;35m
 
 # Command Hiding
 export VERBOSE = TRUE
+
 ifeq ($(VERBOSE),FALSE)
     HIDE =
 else
@@ -49,17 +54,14 @@ else
 endif
 
 # Base Commands
-DC          = docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE)
-PIO         = ${HIDE} pio run -d $(HARDWARE_DIR)
-PRINTF_     = ${HIDE}printf
+DC  = docker compose --env-file $(ENV_FILE) -f $(COMPOSE_FILE)
+PIO = $(HIDE) pio run -d $(HARDWARE_DIR)
 
 .DEFAULT_GOAL := help
 
 # ================================================= #
 #             2. ROUTING & GLOBAL COMMANDS          #
 # ================================================= #
-
-# Dummy targets for routing arguments (e.g., "make build sw")
 sw:
 	@:
 
@@ -90,6 +92,7 @@ build:
 			3) printf "${CYAN}Building Software and Hardware...${RESET}\n"; \
 			   $(MAKE) both-build ;; \
 			*) printf "${RED}Invalid choice. Please select a valid option.${RESET}\n"; \
+			   exit 1 ;; \
 		esac; \
 	fi
 
@@ -114,20 +117,21 @@ clean:
 			3) printf "${CYAN}Cleaning Software and Hardware...${RESET}\n"; \
 			   $(MAKE) both-clean ;; \
 			*) printf "${RED}Invalid choice. Please select a valid option.${RESET}\n"; \
+			   exit 1 ;; \
 		esac; \
 	fi
 
 up:
-	${PRINTF_} "$(GREEN)Starting $(PROJECT_NAME) containers...\n$(RESET)"
-	${HIDE}$(DC) up -d
+	$(HIDE)printf "$(GREEN)Starting $(PROJECT_NAME) containers...\n$(RESET)"
+	$(HIDE)$(DC) up -d
 
 down:
-	${PRINTF_} "$(YELLOW)Stopping and removing $(PROJECT_NAME) containers...\n$(RESET)"
-	${HIDE}$(DC) down
+	$(HIDE)printf "$(YELLOW)Stopping and removing $(PROJECT_NAME) containers...\n$(RESET)"
+	$(HIDE)$(DC) down
 
 reboot:
-	${PRINTF_} "$(ORANGE)Restarting $(PROJECT_NAME) containers...\n$(RESET)"
-	${HIDE}$(DC) restart
+	$(HIDE)printf "$(ORANGE)Restarting $(PROJECT_NAME) containers...\n$(RESET)"
+	$(HIDE)$(DC) restart
 
 rebuild:
 	@target="$(REBUILD_TARGET)"; \
@@ -141,31 +145,37 @@ rebuild:
 			1) target=sw ;; \
 			2) target=hw ;; \
 			3) target=both ;; \
-			*) printf "${RED}Invalid choice. Please select a valid option.${RESET}\n"; exit 1 ;; \
+			*) printf "${RED}Invalid choice. Please select 1, 2, or 3.${RESET}\n"; \
+			   exit 1 ;; \
 		esac; \
 	fi; \
 	case $$target in \
-		sw) printf "${GREEN}Rebuilding Software...${RESET}\n"; $(MAKE) sw-clean sw-build ;; \
-		hw) printf "${YELLOW}Rebuilding Hardware...${RESET}\n"; $(MAKE) hw-clean hw-build ;; \
-		both) printf "${CYAN}Rebuilding Software and Hardware...${RESET}\n"; $(MAKE) both-rebuild ;; \
-		*) printf "${RED}Invalid target. Please select sw, hw, or both.${RESET}\n"; exit 1 ;; \
+		sw) printf "${GREEN}Rebuilding Software...${RESET}\n"; \
+		    $(MAKE) sw-clean sw-build ;; \
+		hw) printf "${YELLOW}Rebuilding Hardware...${RESET}\n"; \
+		    $(MAKE) hw-clean hw-build ;; \
+		both) printf "${CYAN}Rebuilding Software and Hardware...${RESET}\n"; \
+		      $(MAKE) both-rebuild ;; \
+		*) printf "${RED}Invalid target. Please select sw, hw, or both.${RESET}\n"; \
+		   exit 1 ;; \
 	esac
 
 # ================================================= #
 #               3. SOFTWARE / DOCKER                #
 # ================================================= #
-
 sw-build: ssl
-	${PRINTF_} "$(BLUE)Building and starting $(PROJECT_NAME) containers...\n$(RESET)"
-	${HIDE}$(DC) up -d --build
+	$(HIDE)printf "$(BLUE)Building and starting $(PROJECT_NAME) containers...\n$(RESET)"
+	$(HIDE)$(DC) up -d --build
 
 sw-clean: down
-	$(HIDE)printf "$(RED)WARNING: Wiping project containers, images, database volumes, and generated SSL certs!$(RESET)\n"
-	${HIDE}$(DC) down -v --rmi all --remove-orphans
-	${PRINTF_} "$(RED)Cleaning server logs and generated SSL certificates...\n$(RESET)"
-	${HIDE}rm -f $(CERT_FILE) $(KEY_FILE) 2>/dev/null || true
-	${HIDE}rm -rf $(SOFTWARE_DIR)/server/logs/apache/* $(SOFTWARE_DIR)/server/logs/application/* 2>/dev/null || true
-	${PRINTF_} "$(GREEN)Cleanup completed successfully.\n$(RESET)"
+	$(HIDE)printf "$(RED)Cleaning software containers, images, database volume, and runtime logs...\n$(RESET)"
+	$(HIDE)$(DC) down -v --rmi all --remove-orphans
+	$(HIDE)printf "$(RED)Cleaning server logs...\n$(RESET)"
+	$(HIDE)rm -rf \
+		$(SOFTWARE_DIR)/server/logs/apache/* \
+		$(SOFTWARE_DIR)/server/logs/application/* 2>/dev/null || true
+	$(HIDE)printf "$(GREEN)Software cleanup completed.\n$(RESET)"
+	$(HIDE)printf "$(GREEN)SSL files were preserved.\n$(RESET)"
 
 both-build:
 	$(MAKE) sw-build
@@ -180,99 +190,158 @@ both-rebuild:
 	$(MAKE) both-build
 
 ssl:
-	$(HIDE)if [ ! -f "$(CERT_FILE)" ]; then \
-		printf "$(YELLOW)Generating self-signed SSL certificates...$(RESET)\n"; \
-		mkdir -p $(SSL_CERTS_DIR) $(SSL_PRIVATE_DIR); \
-		MSYS_NO_PATHCONV=1 openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-			-keyout $(KEY_FILE) -out $(CERT_FILE) \
-			-subj "/C=MA/ST=Casablanca/L=Casablanca/O=ED42/OU=IAS42/CN=localhost" 2>/dev/null || { \
-				rm -f $(CERT_FILE) $(KEY_FILE); \
-				printf "$(RED)SSL certificate generation failed.$(RESET)\n"; \
-				exit 1; \
-		}; \
-		printf "$(GREEN)SSL Certificates generated successfully!$(RESET)\n"; \
-	else \
-		printf "$(GREEN)SSL Certificates already exist. Skipping generation.$(RESET)\n"; \
-	fi
+	@printf "${CYAN}Validating IAS42 SSL deployment files...${RESET}\n"; \
+	if [ ! -s "$(CERT_FILE)" ]; then \
+		printf "${RED}ERROR: Missing server certificate:${RESET}\n"; \
+		printf "  $(CERT_FILE)\n"; \
+		exit 1; \
+	fi; \
+	if [ ! -s "$(KEY_FILE)" ]; then \
+		printf "${RED}ERROR: Missing private key:${RESET}\n"; \
+		printf "  $(KEY_FILE)\n"; \
+		exit 1; \
+	fi; \
+	if [ ! -s "$(CA_BUNDLE_FILE)" ]; then \
+		printf "${RED}ERROR: Missing CA bundle:${RESET}\n"; \
+		printf "  $(CA_BUNDLE_FILE)\n"; \
+		exit 1; \
+	fi; \
+	if [ ! -s "$(FULLCHAIN_FILE)" ]; then \
+		printf "${RED}ERROR: Missing fullchain:${RESET}\n"; \
+		printf "  $(FULLCHAIN_FILE)\n"; \
+		exit 1; \
+	fi; \
+	printf "${GREEN}SSL files found.${RESET}\n"; \
+	printf "\n${WHITE}Certificate:${RESET}\n"; \
+	openssl x509 \
+		-in "$(CERT_FILE)" \
+		-noout \
+		-subject \
+		-issuer \
+		-dates \
+		-ext subjectAltName; \
+	printf "\n${WHITE}Checking certificate expiration...${RESET}\n"; \
+	openssl x509 \
+		-in "$(CERT_FILE)" \
+		-checkend 0 \
+		-noout; \
+	printf "${GREEN}Certificate is currently valid.${RESET}\n"; \
+	printf "\n${WHITE}Checking certificate/private-key match...${RESET}\n"; \
+	CERT_MODULUS_HASH=$$(openssl x509 \
+		-in "$(CERT_FILE)" \
+		-noout \
+		-modulus | \
+		openssl sha256 | \
+		cut -d ' ' -f 2); \
+	KEY_MODULUS_HASH=$$(openssl rsa \
+		-in "$(KEY_FILE)" \
+		-noout \
+		-modulus | \
+		openssl sha256 | \
+		cut -d ' ' -f 2); \
+	printf "Certificate modulus: %s\n" "$$CERT_MODULUS_HASH"; \
+	printf "Private key modulus: %s\n" "$$KEY_MODULUS_HASH"; \
+	if [ -z "$$CERT_MODULUS_HASH" ] || [ -z "$$KEY_MODULUS_HASH" ]; then \
+		printf "${RED}ERROR: Could not determine certificate/private-key modulus.${RESET}\n"; \
+		exit 1; \
+	fi; \
+	if [ "$$CERT_MODULUS_HASH" != "$$KEY_MODULUS_HASH" ]; then \
+		printf "${RED}ERROR: Certificate does not match private key.${RESET}\n"; \
+		exit 1; \
+	fi; \
+	printf "${GREEN}Certificate matches private key.${RESET}\n"; \
+	printf "\n${GREEN}SSL validation completed successfully.${RESET}\n"
 
 logs:
 	@printf "${CYAN}Choose a service to view logs:${RESET}\n"; \
 	printf "${GREEN}1) Apache${RESET}\n"; \
 	printf "${YELLOW}2) MySQL${RESET}\n"; \
-	read -p "Enter your choice (1-2): " choice; \
+	printf "${MAGENTA}3) MQTT Bridge${RESET}\n"; \
+	read -p "Enter your choice (1-3): " choice; \
 	case $$choice in \
 		1) printf "${GREEN}Viewing logs for Apache...${RESET}\n"; \
 		   $(DC) logs -f apache ;; \
 		2) printf "${YELLOW}Viewing logs for MySQL...${RESET}\n"; \
 		   $(DC) logs -f mysql ;; \
-		*) printf "${RED}Invalid choice. Please select a valid option.${RESET}\n"; \
+		3) printf "${MAGENTA}Viewing logs for MQTT Bridge...${RESET}\n"; \
+		   $(DC) logs -f mqtt-bridge ;; \
+		*) printf "${RED}Invalid choice. Please select 1, 2, or 3.${RESET}\n"; \
+		   exit 1 ;; \
 	esac
 
 shell:
 	@printf "${CYAN}Choose a service to open a shell:${RESET}\n"; \
 	printf "${GREEN}1) Apache${RESET}\n"; \
 	printf "${YELLOW}2) MySQL${RESET}\n"; \
-	read -p "Enter your choice (1-2): " choice; \
+	printf "${MAGENTA}3) MQTT Bridge${RESET}\n"; \
+	read -p "Enter your choice (1-3): " choice; \
 	case $$choice in \
 		1) printf "${GREEN}Opening shell for Apache...${RESET}\n"; \
 		   $(DC) exec apache bash ;; \
 		2) printf "${YELLOW}Opening shell for MySQL...${RESET}\n"; \
 		   $(DC) exec mysql bash ;; \
-		*) printf "${RED}Invalid choice. Please select a valid option.${RESET}\n"; \
+		3) printf "${MAGENTA}Opening shell for MQTT Bridge...${RESET}\n"; \
+		   $(DC) exec mqtt-bridge bash ;; \
+		*) printf "${RED}Invalid choice. Please select 1, 2, or 3.${RESET}\n"; \
+		   exit 1 ;; \
 	esac
 
 reset-db:
-	$(HIDE)printf "$(ORANGE)Resetting database – removing volumes and recreating containers...$(RESET)\n"
-	${HIDE}$(DC) down -v
-	${HIDE}$(DC) up -d
+	$(HIDE)printf "$(ORANGE)Resetting database – removing volumes and recreating containers...\n$(RESET)"
+	$(HIDE)$(DC) down -v
+	$(HIDE)$(DC) up -d
 
 # ================================================= #
 #             4. HARDWARE / PLATFORMIO              #
 # ================================================= #
-
 hw-build:
-	${PRINTF_} "$(BLUE)Building $(PROJECT_NAME) hardware firmware...\n$(RESET)"
-	${PIO}
+	$(HIDE)printf "$(BLUE)Building $(PROJECT_NAME) hardware firmware...\n$(RESET)"
+	$(PIO)
 
 upload:
-	${PRINTF_} "$(GREEN)Uploading $(PROJECT_NAME) firmware to the physical ESP32 board...\n$(RESET)"
-	${PIO} --target upload
+	$(HIDE)printf "$(GREEN)Uploading $(PROJECT_NAME) firmware to the physical ESP32 board...\n$(RESET)"
+	$(PIO) --target upload
 
 monitor:
-	${PRINTF_} "$(CYAN)Starting $(PROJECT_NAME) serial monitor...\n$(RESET)"
-	${PIO} --target monitor
+	$(HIDE)printf "$(CYAN)Starting $(PROJECT_NAME) serial monitor...\n$(RESET)"
+	$(PIO) --target monitor
 
 hw-clean:
-	${PRINTF_} "$(RED)Cleaning $(PROJECT_NAME) hardware build artifacts...\n$(RESET)"
-	${PIO} --target clean --verbose
-	$(HIDE) rm -rf $(HARDWARE_DIR)/.pio
+	$(HIDE)printf "$(RED)Cleaning $(PROJECT_NAME) hardware build artifacts...\n$(RESET)"
+	$(PIO) --target clean --verbose
+	$(HIDE)rm -rf $(HARDWARE_DIR)/.pio
 
 # ================================================= #
 #                5. DOCUMENTATION                   #
 # ================================================= #
 
 help:
-	${PRINTF_} "\n${BLUE}IAS42 Makefile${RESET}\n"
-	${PRINTF_} "  Simplified Commands for Managing the IAS42 Software and Hardware Stack.\n"
-	${PRINTF_} "\n${WHITE}COMMANDS${RESET}\n"
-	${PRINTF_} "  ${GREEN}build${RESET}      Build the selected stack.\n"
-	${PRINTF_} "  ${RED}clean${RESET}      Remove build output and runtime artifacts.\n"
-	${PRINTF_} "  ${GREEN}rebuild${RESET}    Rebuild the selected stack.\n"
-	${PRINTF_} "  ${BLUE}up${RESET}         Start the software stack.\n"
-	${PRINTF_} "  ${RED}down${RESET}       Stop the software stack.\n"
-	${PRINTF_} "  ${GREEN}reboot${RESET}     Restart the software stack.\n"
-	${PRINTF_} "  ${ORANGE}logs${RESET}       View container logs.\n"
-	${PRINTF_} "  ${YELLOW}shell${RESET}      Open a shell in a container.\n"
-	${PRINTF_} "  ${CYAN}upload${RESET}     Upload firmware to the physical ESP32 board.\n"
-	${PRINTF_} "  ${MAGENTA}monitor${RESET}    Open the physical ESP32 serial monitor.\n"
-	${PRINTF_} "  ${RED}reset-db${RESET}   Reset the database (remove volume and restart).\n"
-	${PRINTF_} "\n${WHITE}OPTIONS${RESET}\n"
-	${PRINTF_} "  ${ORANGE}sw${RESET}         Software stack.\n"
-	${PRINTF_} "  ${CYAN}hw${RESET}         Hardware stack.\n"
-	${PRINTF_} "  ${ORANGE}both${RESET}       For both stacks.\n"	
-	${PRINTF_} "  ${CYAN}Apache${RESET}     Apache container for logs or shell.\n"
-	${PRINTF_} "  ${ORANGE}MySQL${RESET}      MySQL container for logs or shell.\n"
-	${PRINTF_} "\n${GREY}Use 'make build sw', 'make build hw', 'make build both', 'make clean sw', 'make clean hw', 'make clean both', 'make rebuild sw', 'make rebuild hw', or 'make rebuild both'.${RESET}\n"
+	$(HIDE)printf "\n${BLUE}IAS42 Makefile${RESET}\n"
+	$(HIDE)printf "  Software, hardware, Docker and SSL deployment management.\n"
+	$(HIDE)printf "\n${WHITE}COMMANDS${RESET}\n"
+	$(HIDE)printf "  ${GREEN}build${RESET}      Build the selected stack.\n"
+	$(HIDE)printf "  ${RED}clean${RESET}      Clean selected runtime/build artifacts.\n"
+	$(HIDE)printf "  ${GREEN}rebuild${RESET}    Rebuild the selected stack.\n"
+	$(HIDE)printf "  ${BLUE}up${RESET}         Start the software stack.\n"
+	$(HIDE)printf "  ${RED}down${RESET}       Stop the software stack.\n"
+	$(HIDE)printf "  ${GREEN}reboot${RESET}     Restart the software stack.\n"
+	$(HIDE)printf "  ${ORANGE}ssl${RESET}        Validate the installed SSL certificate/key.\n"
+	$(HIDE)printf "  ${ORANGE}logs${RESET}       View container logs.\n"
+	$(HIDE)printf "  ${YELLOW}shell${RESET}      Open a shell in a container.\n"
+	$(HIDE)printf "  ${CYAN}upload${RESET}     Upload firmware to the physical ESP32 board.\n"
+	$(HIDE)printf "  ${MAGENTA}monitor${RESET}    Open the physical ESP32 serial monitor.\n"
+	$(HIDE)printf "  ${RED}reset-db${RESET}   Reset the database volume.\n"
+	$(HIDE)printf "\n${WHITE}TARGETS${RESET}\n"
+	$(HIDE)printf "  ${ORANGE}sw${RESET}         Software stack.\n"
+	$(HIDE)printf "  ${CYAN}hw${RESET}         Hardware stack.\n"
+	$(HIDE)printf "  ${ORANGE}both${RESET}       Software and hardware.\n"
+	$(HIDE)printf "\n${GREY}Examples:${RESET}\n"
+	$(HIDE)printf "  make build sw\n"
+	$(HIDE)printf "  make build hw\n"
+	$(HIDE)printf "  make build both\n"
+	$(HIDE)printf "  make rebuild sw\n"
+	$(HIDE)printf "  make ssl\n"
 
-.PHONY: build up down reboot rebuild logs shell ssl clean sw hw both sw-build sw-clean both-build both-clean both-rebuild hw-build \
-        upload monitor hw-clean reset-db help
+.PHONY: build up down reboot rebuild logs shell ssl clean sw hw both \
+        sw-build sw-clean both-build both-clean both-rebuild \
+        hw-build upload monitor hw-clean reset-db help
