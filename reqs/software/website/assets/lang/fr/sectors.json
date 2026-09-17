@@ -1,0 +1,43 @@
+{
+  "page": {
+    "title": "Secteurs",
+    "back": "Champs",
+    "subtitle": "Gérez vos nœuds ESP32 déployés et vos cultures.",
+    "add_sector": "Ajouter un secteur",
+    "empty": "Aucun secteur créé. Cliquez sur « Ajouter un secteur » pour enregistrer un nœud."
+  },
+  "card": {
+    "crop": "Culture",
+    "status": "État"
+  },
+  "modal": {
+    "common": {
+      "cancel": "Annuler",
+      "close_title": "Fermer"
+    },
+    "add": {
+      "title": "Ajouter un secteur",
+      "sector_name": "Nom du secteur <span class=\"required\">*</span>",
+      "sector_name_placeholder": "ex. Verger Nord",
+      "node_id": "ID du nœud ESP <span class=\"required\">*</span>",
+      "node_id_placeholder": "ex. A84F92",
+      "crop": "Culture <span class=\"required\">*</span>",
+      "crop_placeholder": "Choisir une culture",
+      "custom_crop_option": "Culture personnalisée",
+      "custom_crop_name": "Nom de la culture personnalisée <span class=\"required\">*</span>",
+      "custom_crop_name_placeholder": "ex. Fruit du dragon",
+      "image_title": "Image du secteur",
+      "default_images": "Images par défaut",
+      "upload_image": "Importer une image",
+      "upload_drop_title": "Déposez une image ici",
+      "upload_drop_or": "ou cliquez pour parcourir",
+      "upload_hint": "JPG, PNG ou WebP · 2 Mo maximum",
+      "upload_ready": "Image prête à être importée",
+      "remove_image_title": "Supprimer l’image sélectionnée",
+      "no_default_images": "Aucune image de culture par défaut disponible.",
+      "upload_invalid_type": "Seuls les formats JPG, PNG et WebP sont autorisés.",
+      "upload_too_large": "L’image doit faire 2 Mo ou moins.",
+      "submit": "Ajouter le secteur"
+    }
+  }
+}

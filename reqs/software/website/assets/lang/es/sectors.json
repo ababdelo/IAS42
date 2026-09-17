@@ -1,0 +1,43 @@
+{
+  "page": {
+    "title": "Sectores",
+    "back": "Campos",
+    "subtitle": "Gestiona tus nodos ESP32 desplegados y asignaciones de cultivos.",
+    "add_sector": "Añadir sector",
+    "empty": "Aún no hay sectores. Pulsa « Añadir sector » para registrar un nodo."
+  },
+  "card": {
+    "crop": "Cultivo",
+    "status": "Estado"
+  },
+  "modal": {
+    "common": {
+      "cancel": "Cancelar",
+      "close_title": "Cerrar"
+    },
+    "add": {
+      "title": "Añadir sector",
+      "sector_name": "Nombre del sector <span class=\"required\">*</span>",
+      "sector_name_placeholder": "ej. Huerto Norte",
+      "node_id": "ID del nodo ESP <span class=\"required\">*</span>",
+      "node_id_placeholder": "ej. A84F92",
+      "crop": "Cultivo <span class=\"required\">*</span>",
+      "crop_placeholder": "Elegir un cultivo",
+      "custom_crop_option": "Cultivo personalizado",
+      "custom_crop_name": "Nombre del cultivo personalizado <span class=\"required\">*</span>",
+      "custom_crop_name_placeholder": "ej. Pitahaya",
+      "image_title": "Imagen del sector",
+      "default_images": "Imágenes predeterminadas",
+      "upload_image": "Subir imagen",
+      "upload_drop_title": "Suelta una imagen aquí",
+      "upload_drop_or": "o haz clic para buscar",
+      "upload_hint": "JPG, PNG o WebP · máximo 2 MB",
+      "upload_ready": "Imagen lista para subir",
+      "remove_image_title": "Eliminar imagen seleccionada",
+      "no_default_images": "No hay imágenes de cultivos predeterminadas disponibles.",
+      "upload_invalid_type": "Solo se permiten imágenes JPG, PNG y WebP.",
+      "upload_too_large": "La imagen debe pesar 2 MB o menos.",
+      "submit": "Añadir sector"
+    }
+  }
+}

@@ -1,105 +1,220 @@
 <?php
 require_once __DIR__ . '/../backend/includes/init.php';
 requireAuthentication();
+
+$conn = getDb();
+$userId = (int)$_SESSION['user_id'];
+generateCsrfToken();
+
+function verifyFieldAccountPassword(PDO $conn, int $userId, string $password): bool
+{
+    if ($password === '') {
+        return false;
+    }
+
+    $stmt = $conn->prepare('SELECT password FROM USERS WHERE id = ? LIMIT 1');
+    $stmt->execute([$userId]);
+    $hash = $stmt->fetchColumn();
+
+    return is_string($hash) && $hash !== '' && password_verify($password, $hash);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = (string)($_POST['action'] ?? '');
+    $csrfToken = (string)($_POST['csrf_token'] ?? '');
+    verifyCsrfToken($csrfToken, '/fields');
+
+    if ($action === 'delete_field') {
+        $fieldId = filter_input(INPUT_POST, 'field_id', FILTER_VALIDATE_INT) ?: 0;
+        $password = (string)($_POST['password'] ?? '');
+
+        if ($fieldId <= 0 || !verifyFieldAccountPassword($conn, $userId, $password)) {
+            $_SESSION['error'] = 'The field could not be deleted. Please verify your account password.';
+            header('Location: /fields');
+            exit;
+        }
+
+        try {
+            $conn->beginTransaction();
+
+            $stmt = $conn->prepare(
+                'DELETE n
+                 FROM IOT_NODES n
+                 INNER JOIN SECTORS s ON s.id = n.sector_id
+                 INNER JOIN FIELDS f ON f.id = s.field_id
+                 WHERE f.id = ? AND f.user_id = ?'
+            );
+            $stmt->execute([$fieldId, $userId]);
+
+            $stmt = $conn->prepare('DELETE FROM FIELDS WHERE id = ? AND user_id = ?');
+            $stmt->execute([$fieldId, $userId]);
+
+            if ($stmt->rowCount() !== 1) {
+                throw new RuntimeException('Field not found or access denied.');
+            }
+
+            $conn->commit();
+            $_SESSION['success'] = 'Field and its related sector nodes were permanently deleted.';
+        } catch (Throwable $e) {
+            if ($conn->inTransaction()) {
+                $conn->rollBack();
+            }
+
+            $_SESSION['error'] = $e instanceof RuntimeException
+                ? $e->getMessage()
+                : 'Database error while deleting the field.';
+        }
+
+        header('Location: /fields');
+        exit;
+    }
+
+    $name = trim((string)($_POST['name'] ?? ''));
+    $location = trim((string)($_POST['location'] ?? ''));
+    $area = (float)($_POST['area'] ?? 0);
+
+    if ($name === '' || mb_strlen($name) > 255) {
+        $_SESSION['warning'] = $name === '' ? 'Field name is required.' : 'Field name is too long.';
+        header('Location: /fields');
+        exit;
+    }
+
+    if ($area < 0) {
+        $_SESSION['warning'] = 'Field area cannot be negative.';
+        header('Location: /fields');
+        exit;
+    }
+
+    if ($action === 'add_field') {
+        try {
+            $stmt = $conn->prepare('INSERT INTO FIELDS (user_id, name, location, area) VALUES (?, ?, ?, ?)');
+            $stmt->execute([$userId, $name, $location, $area]);
+            $_SESSION['success'] = 'Field added successfully.';
+        } catch (PDOException $e) {
+            $_SESSION['error'] = 'Database error while adding field.';
+        }
+
+        header('Location: /fields');
+        exit;
+    }
+
+    if ($action === 'edit_field') {
+        $fieldId = filter_input(INPUT_POST, 'field_id', FILTER_VALIDATE_INT) ?: 0;
+        $stmt = $conn->prepare('SELECT id FROM FIELDS WHERE id = ? AND user_id = ? LIMIT 1');
+        $stmt->execute([$fieldId, $userId]);
+
+        if (!$stmt->fetchColumn()) {
+            $_SESSION['error'] = 'Field not found or access denied.';
+            header('Location: /fields');
+            exit;
+        }
+
+        $stmt = $conn->prepare('UPDATE FIELDS SET name = ?, location = ?, area = ? WHERE id = ? AND user_id = ?');
+        $stmt->execute([$name, $location, $area, $fieldId, $userId]);
+        $_SESSION['success'] = 'Field updated successfully.';
+        header('Location: /fields');
+        exit;
+    }
+}
+
+// --- Fetch User's Fields with Analytics ---
+$stmt = $conn->prepare("
+    SELECT f.*, COUNT(DISTINCT s.id) as sector_count, COUNT(DISTINCT n.id) as node_count
+    FROM FIELDS f
+    LEFT JOIN SECTORS s ON f.id = s.field_id
+    LEFT JOIN IOT_NODES n ON s.id = n.sector_id
+    WHERE f.user_id = ?
+    GROUP BY f.id
+");
+$stmt->execute([$userId]);
+$fields = $stmt->fetchAll();
+$fieldIcons = [
+    'ri-leaf-fill',
+    'ri-plant-fill',
+    'ri-flower-fill',
+    'ri-tree-fill'
+];
+
 $pageTitle = 'fields';
 $extraCss = '<link rel="stylesheet" href="/assets/css/fields.css">';
 $extraJs  = '<script src="/assets/js/fields.js" defer></script>';
 require_once __DIR__ . "/components/sideBar.php";
 ?>
+
 <div class="fields-wrapper">
     <div class="page-header-actions">
         <div>
-            <h2 data-i18n="fields.page.title">My Fields</h2>
-            <span class="text-muted" data-i18n="fields.page.subtitle">Manage your farms and agricultural zones</span>
+            <h1 data-i18n="fields.page.title">My Fields</h1>
         </div>
-        <button type="button" class="btn-primary" id="openFieldModalBtn">
-            <i class="ri-add-line"></i> <span data-i18n="fields.page.add_field">Add New Field</span>
-        </button>
+        <?php if (!empty($fields)): ?>
+            <button type="button" class="btn-primary" id="openFieldModalBtn">
+                <i class="ri-add-line"></i> <span data-i18n="fields.page.add_field">Add New Field</span>
+            </button>
+        <?php endif; ?>
     </div>
 
-    <!-- MVP Single Farm View -->
     <div class="farms-list">
-        <article class="farm-row-card">
-            <div class="farm-row__icon bg-gradient-1">
-                <i class="ri-landscape-line"></i>
+        <?php if (empty($fields)): ?>
+            <div class="fields-empty">
+                <img src="/assets/imgs/icons/noItemFound.webp" alt="">
+                <h3>No fields found.</h3>
+                <p>Create your first field to get started!</p>
+                <button type="button" class="btn-primary" id="openFieldModalBtn">
+                    <i class="ri-add-line" aria-hidden="true"></i>
+                    <span>Add New Field</span>
+                </button>
             </div>
-            
-            <div class="farm-row__core">
-                <div class="farm-row__info">
-                    <h3>Oasis Farm</h3>
-                    <span class="location"><i class="ri-map-pin-line"></i> Ouarzazate, Morocco</span>
-                </div>
-                
-                <div class="farm-row__stats">
-                    <div class="stat-item">
-                        <span class="stat-label" data-i18n="fields.profile.total_area">Total Area</span>
-                        <div class="stat-val"><strong>2.0</strong> <small data-i18n="fields.units.hectares">ha</small></div>
+        <?php else: ?>
+            <?php foreach ($fields as $field): ?>
+                <?php $fieldIcon = $fieldIcons[(int)$field['id'] % count($fieldIcons)]; ?>
+                <article
+                    class="farm-row-card"
+                    data-field-id="<?= (int)$field['id'] ?>"
+                    data-field-name="<?= htmlspecialchars($field['name'], ENT_QUOTES, 'UTF-8') ?>"
+                    data-field-location="<?= htmlspecialchars($field['location'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                    data-field-area="<?= htmlspecialchars((string)($field['area'] ?? 0), ENT_QUOTES, 'UTF-8') ?>">
+                    <div class="farm-row__icon bg-gradient-1">
+                        <i class="<?= htmlspecialchars($fieldIcon, ENT_QUOTES, 'UTF-8') ?>"></i>
                     </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-label" data-i18n="fields.profile.active_nodes">Active Nodes</span>
-                        <div class="stat-val"><strong>1</strong> <small data-i18n="fields.profile.node">Node</small></div>
+                    <div class="farm-row__core">
+                        <div class="farm-row__info">
+                            <h3><?= htmlspecialchars($field['name']) ?></h3>
+                            <span class="location"><i class="ri-map-pin-line"></i> <?= htmlspecialchars($field['location'] ?? 'Unknown') ?></span>
+                        </div>
+                        <div class="farm-row__stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Total Area</span>
+                                <div class="stat-val"><strong><?= $field['area'] ?></strong> <small>ha</small></div>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-item">
+                                <span class="stat-label">Active Nodes</span>
+                                <div class="stat-val"><strong><?= $field['node_count'] ?></strong> <small>Nodes</small></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="farm-row__actions">
-                <div class="icon-actions">
-                    <button class="action-btn edit" data-i18n-title="fields.actions.edit" title="Edit"><i class="ri-edit-line"></i></button>
-                    <button class="action-btn delete" data-i18n-title="fields.actions.delete" title="Delete"><i class="ri-delete-bin-line"></i></button>
-                </div>
-                <a href="/sectors?field=1" class="btn-enter">
-                    <span data-i18n="fields.actions.manage_zones">Manage Zones</span> <i class="ri-arrow-right-line"></i>
-                </a>
-            </div>
-        </article>
+                    <div class="farm-row__actions">
+                        <div class="icon-actions">
+                            <button type="button" class="action-btn edit" data-field-action="edit" aria-label="Edit field" title="Edit field">
+                                <i class="ri-edit-line" aria-hidden="true"></i>
+                            </button>
+                            <button type="button" class="action-btn delete" data-field-action="delete" aria-label="Delete field" title="Delete field">
+                                <i class="ri-delete-bin-line" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <a href="/sectors?field=<?= $field['id'] ?>" class="btn-enter">
+                            <span data-i18n="fields.actions.manage_zones">Manage Zones</span> <i class="ri-arrow-right-line"></i>
+                        </a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </div>
 </div>
 
-<!-- Add/Edit Field Modal -->
-<div class="modal-overlay" id="fieldModal" aria-hidden="true">
-    <div class="modal-content">
-        <div class="modal-header-accent bg-gradient-1"></div>
-        <div class="modal-header">
-            <div class="modal-title-group">
-                <div class="modal-icon"><i class="ri-landscape-line"></i></div>
-                <h3 data-i18n="fields.field_modal.title">Register New Field</h3>
-            </div>
-            <button type="button" class="close-modal close-field-modal" aria-label="Close"><i class="ri-close-line"></i></button>
-        </div>
-        
-        <form class="modal-form" id="fieldForm">
-            <p class="modal-description" data-i18n="fields.field_modal.description">Enter the details of your new agricultural zone to start tracking its data.</p>
-            
-            <div class="input-group">
-                <label data-i18n="fields.field_modal.name">Field Name</label>
-                <div class="input-modern">
-                    <i class="ri-edit-2-line"></i>
-                    <!-- Added data-i18n-placeholder here -->
-                    <input type="text" placeholder="e.g. South Farm" data-i18n-placeholder="fields.field_modal.name_ph" required>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="input-group">
-                    <label data-i18n="fields.field_modal.location">Location (City)</label>
-                    <div class="input-modern">
-                        <i class="ri-map-pin-line"></i>
-                        <input type="text" placeholder="e.g. Agadir" data-i18n-placeholder="fields.field_modal.location_ph" required>
-                    </div>
-                </div>
-                <div class="input-group">
-                    <label data-i18n="fields.field_modal.area">Total Area (ha)</label>
-                    <div class="input-modern">
-                        <i class="ri-ruler-line"></i>
-                        <input type="number" step="0.1" placeholder="0.0" data-i18n-placeholder="fields.field_modal.area_ph" required>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-cancel close-field-modal" data-i18n="global.cancel">Cancel</button>
-                <button type="submit" class="btn-submit"><span data-i18n="global.save">Save Field</span> <i class="ri-check-line"></i></button>
-            </div>
-        </form>
-    </div>
-</div>
+<?php
+require_once __DIR__ . '/components/modals/fields/add.php';
+require_once __DIR__ . '/components/modals/fields/edit.php';
+require_once __DIR__ . '/components/modals/fields/delete.php';
+?>
 <?php require_once __DIR__ . "/components/footer.php"; ?>

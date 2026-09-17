@@ -1,0 +1,43 @@
+{
+  "page": {
+    "title": "Sectors",
+    "back": "Fields",
+    "subtitle": "Manage your deployed ESP32 nodes and crop assignments.",
+    "add_sector": "Add Sector",
+    "empty": "No sectors created yet. Click “Add Sector” to register a node."
+  },
+  "card": {
+    "crop": "Crop",
+    "status": "Status"
+  },
+  "modal": {
+    "common": {
+      "cancel": "Cancel",
+      "close_title": "Close"
+    },
+    "add": {
+      "title": "Add New Sector",
+      "sector_name": "Sector name <span class=\"required\">*</span>",
+      "sector_name_placeholder": "e.g. North Orchard",
+      "node_id": "ESP node ID <span class=\"required\">*</span>",
+      "node_id_placeholder": "e.g. A84F92",
+      "crop": "Crop <span class=\"required\">*</span>",
+      "crop_placeholder": "Choose a crop",
+      "custom_crop_option": "Custom crop",
+      "custom_crop_name": "Custom crop name <span class=\"required\">*</span>",
+      "custom_crop_name_placeholder": "e.g. Dragon fruit",
+      "image_title": "Sector image",
+      "default_images": "Default images",
+      "upload_image": "Upload image",
+      "upload_drop_title": "Drop an image here",
+      "upload_drop_or": "or click to browse",
+      "upload_hint": "JPG, PNG or WebP · maximum 2 MB",
+      "upload_ready": "Image ready to upload",
+      "remove_image_title": "Remove selected image",
+      "no_default_images": "No default crop images are available.",
+      "upload_invalid_type": "Only JPG, PNG, and WebP images are allowed.",
+      "upload_too_large": "The image must be 2 MB or smaller.",
+      "submit": "Add Sector"
+    }
+  }
+}

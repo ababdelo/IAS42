@@ -13,7 +13,7 @@
     ];
 
     const LANGUAGE_LABELS = { en: 'Language', fr: 'Langue', es: 'Idioma', ar: 'اللغة' };
-    const MODULES = ['global', 'validation', 'auth', 'notifier', 'email', 'dashboard', 'analytics', 'history', 'notifications', 'profile', 'settings', 'fields'];
+    const MODULES = ['global', 'validation', 'auth', 'notifier', 'email', 'dashboard', 'analytics', 'history', 'notifications', 'profile', 'settings', 'fields', 'sectors'];
 
     window.t = function (key, params = {}) {
         if (!window.translations || !key) return null;

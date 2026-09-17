@@ -1,0 +1,43 @@
+{
+  "page": {
+    "title": "القطاعات",
+    "back": "الحقول",
+    "subtitle": "إدارة عقد ESP32 المنشورة وتعيينات المحاصيل.",
+    "add_sector": "إضافة قطاع",
+    "empty": "لم يتم إنشاء أي قطاع بعد. اضغط على «إضافة قطاع» لتسجيل عقدة."
+  },
+  "card": {
+    "crop": "المحصول",
+    "status": "الحالة"
+  },
+  "modal": {
+    "common": {
+      "cancel": "إلغاء",
+      "close_title": "إغلاق"
+    },
+    "add": {
+      "title": "إضافة قطاع جديد",
+      "sector_name": "اسم القطاع <span class=\"required\">*</span>",
+      "sector_name_placeholder": "مثال: البستان الشمالي",
+      "node_id": "معرّف عقدة ESP <span class=\"required\">*</span>",
+      "node_id_placeholder": "مثال: A84F92",
+      "crop": "المحصول <span class=\"required\">*</span>",
+      "crop_placeholder": "اختر محصولاً",
+      "custom_crop_option": "محصول مخصص",
+      "custom_crop_name": "اسم المحصول المخصص <span class=\"required\">*</span>",
+      "custom_crop_name_placeholder": "مثال: فاكهة التنين",
+      "image_title": "صورة القطاع",
+      "default_images": "الصور الافتراضية",
+      "upload_image": "رفع صورة",
+      "upload_drop_title": "أفلت الصورة هنا",
+      "upload_drop_or": "أو انقر للاستعراض",
+      "upload_hint": "JPG أو PNG أو WebP · الحد الأقصى 2 ميغابايت",
+      "upload_ready": "الصورة جاهزة للرفع",
+      "remove_image_title": "إزالة الصورة المحددة",
+      "no_default_images": "لا توجد صور افتراضية للمحاصيل.",
+      "upload_invalid_type": "يسمح فقط بصور JPG وPNG وWebP.",
+      "upload_too_large": "يجب ألا يتجاوز حجم الصورة 2 ميغابايت.",
+      "submit": "إضافة القطاع"
+    }
+  }
+}
