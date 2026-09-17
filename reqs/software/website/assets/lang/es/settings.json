@@ -1,0 +1,17 @@
+{
+  "title": "Configuración",
+  "subtitle": "Gestiona tu perfil, preferencias y notificaciones.",
+  "profile": {
+    "title": "Perfil", "subtitle": "Actualiza los datos de tu cuenta.", "first_name": "Nombre", "last_name": "Apellidos", "username": "Usuario", "email": "Correo electrónico", "email_readonly": "Cambiar el correo requiere verificar la cuenta y no está disponible aquí.", "save": "Guardar cambios", "saving": "Guardando…", "saved": "Perfil actualizado correctamente.", "error": "No se pudo actualizar el perfil."
+  },
+  "notifications": {
+    "title": "Notificaciones", "subtitle": "Elige sobre qué quieres recibir alertas.",
+    "irrigation": { "title": "Riego completado", "description": "Cuando termina un ciclo de bomba." },
+    "weather": { "title": "Alertas meteorológicas", "description": "Lluvia y temperaturas extremas." },
+    "moisture": { "title": "Humedad baja del suelo", "description": "Cuando la humedad baja del umbral de aviso." },
+    "summary": { "title": "Resumen semanal", "description": "Un resumen de tu actividad reciente." }
+  },
+  "appearance": { "title": "Apariencia", "subtitle": "Elige el tema de la interfaz.", "light": "Claro", "dark": "Oscuro" },
+  "account": { "title": "Cuenta", "subtitle": "Información actual de la cuenta.", "username": "Usuario", "type": "Tipo de cuenta", "status": "Estado", "verified": "Verificada" },
+  "security": { "title": "Seguridad", "description": "Mantén tu contraseña privada y usa la recuperación de cuenta cuando sea necesario." }
+}

@@ -1,0 +1,17 @@
+{
+  "title": "Paramètres",
+  "subtitle": "Gérez votre profil, vos préférences et vos notifications.",
+  "profile": {
+    "title": "Profil", "subtitle": "Mettez à jour les informations de votre compte.", "first_name": "Prénom", "last_name": "Nom", "username": "Nom d’utilisateur", "email": "E-mail", "email_readonly": "La modification de l’e-mail nécessite une vérification du compte.", "save": "Enregistrer", "saving": "Enregistrement…", "saved": "Profil mis à jour.", "error": "Impossible de mettre à jour le profil."
+  },
+  "notifications": {
+    "title": "Notifications", "subtitle": "Choisissez les alertes que vous souhaitez recevoir.",
+    "irrigation": { "title": "Irrigation terminée", "description": "Lorsqu’un cycle de pompe se termine." },
+    "weather": { "title": "Alertes météo", "description": "Pluie et températures extrêmes." },
+    "moisture": { "title": "Faible humidité du sol", "description": "Lorsque l’humidité passe sous le seuil d’alerte." },
+    "summary": { "title": "Résumé hebdomadaire", "description": "Un aperçu de votre activité récente." }
+  },
+  "appearance": { "title": "Apparence", "subtitle": "Choisissez le thème de l’interface.", "light": "Clair", "dark": "Sombre" },
+  "account": { "title": "Compte", "subtitle": "Informations actuelles du compte.", "username": "Nom d’utilisateur", "type": "Type de compte", "status": "Statut", "verified": "Vérifié" },
+  "security": { "title": "Sécurité", "description": "Gardez votre mot de passe privé et utilisez la récupération du compte si nécessaire." }
+}
