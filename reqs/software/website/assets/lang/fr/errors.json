@@ -1,0 +1,39 @@
+{
+    "back_to_home": "Retour à la page d'accueil",
+    "unknown": {
+        "title": "Erreur inconnue",
+        "description": "Une erreur inconnue est survenue."
+    },
+    "400": {
+        "title": "Requête incorrecte",
+        "description": "Le serveur ne peut pas traiter la requête en raison d'une erreur du client."
+    },
+    "401": {
+        "title": "Non autorisé",
+        "description": "Une authentification est requise pour accéder à cette ressource."
+    },
+    "403": {
+        "title": "Accès interdit",
+        "description": "Vous n'avez pas l'autorisation d'accéder à cette ressource."
+    },
+    "404": {
+        "title": "Introuvable",
+        "description": "La ressource demandée est introuvable."
+    },
+    "408": {
+        "title": "Délai dépassé",
+        "description": "Le serveur a dépassé le délai d'attente de la requête."
+    },
+    "413": {
+        "title": "Charge utile trop volumineuse",
+        "description": "La requête est trop volumineuse pour être traitée par le serveur."
+    },
+    "500": {
+        "title": "Erreur interne du serveur",
+        "description": "Le serveur a rencontré une condition inattendue."
+    },
+    "503": {
+        "title": "Service indisponible",
+        "description": "Le service est temporairement indisponible. Veuillez réessayer plus tard."
+    }
+}

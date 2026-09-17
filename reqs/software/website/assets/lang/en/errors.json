@@ -1,0 +1,39 @@
+{
+    "back_to_home": "Back to home page",
+    "unknown": {
+        "title": "Unknown Error",
+        "description": "An unknown error has occurred."
+    },
+    "400": {
+        "title": "Bad Request",
+        "description": "The server cannot process the request due to a client error."
+    },
+    "401": {
+        "title": "Unauthorized",
+        "description": "Authentication is required to access this resource."
+    },
+    "403": {
+        "title": "Forbidden",
+        "description": "You do not have permission to access this resource."
+    },
+    "404": {
+        "title": "Not Found",
+        "description": "The requested resource could not be found."
+    },
+    "408": {
+        "title": "Request Timeout",
+        "description": "The server timed out while waiting for the request."
+    },
+    "413": {
+        "title": "Payload Too Large",
+        "description": "The request payload is too large for the server to process."
+    },
+    "500": {
+        "title": "Internal Server Error",
+        "description": "The server encountered an unexpected condition."
+    },
+    "503": {
+        "title": "Service Unavailable",
+        "description": "The service is temporarily unavailable. Please try again later."
+    }
+}

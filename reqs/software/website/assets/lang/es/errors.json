@@ -1,0 +1,39 @@
+{
+    "back_to_home": "Volver a la página de inicio",
+    "unknown": {
+        "title": "Error desconocido",
+        "description": "Ha ocurrido un error desconocido."
+    },
+    "400": {
+        "title": "Solicitud incorrecta",
+        "description": "El servidor no puede procesar la solicitud debido a un error del cliente."
+    },
+    "401": {
+        "title": "No autorizado",
+        "description": "Se requiere autenticación para acceder a este recurso."
+    },
+    "403": {
+        "title": "Prohibido",
+        "description": "No tienes permiso para acceder a este recurso."
+    },
+    "404": {
+        "title": "No encontrado",
+        "description": "No se pudo encontrar el recurso solicitado."
+    },
+    "408": {
+        "title": "Tiempo de espera agotado",
+        "description": "El servidor agotó el tiempo de espera mientras esperaba la solicitud."
+    },
+    "413": {
+        "title": "Contenido demasiado grande",
+        "description": "La solicitud es demasiado grande para que el servidor pueda procesarla."
+    },
+    "500": {
+        "title": "Error interno del servidor",
+        "description": "El servidor encontró una condición inesperada."
+    },
+    "503": {
+        "title": "Servicio no disponible",
+        "description": "El servicio no está disponible temporalmente. Inténtalo de nuevo más tarde."
+    }
+}
