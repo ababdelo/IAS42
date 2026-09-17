@@ -1,0 +1,75 @@
+{
+  "title": "Analyses",
+  "subtitle": "Tendances environnementales et d’irrigation de vos exploitations.",
+  "scope": {
+    "all": "Toutes les exploitations"
+  },
+  "filters": {
+    "field": "Exploitation",
+    "sector": "Secteur",
+    "node": "Nœud IoT",
+    "period": "Période",
+    "all_fields": "Toutes les exploitations",
+    "all_sectors": "Tous les secteurs",
+    "all_nodes": "Tous les nœuds",
+    "days_7": "7 derniers jours",
+    "days_14": "14 derniers jours",
+    "days_30": "30 derniers jours"
+  },
+  "summary": {
+    "telemetry": "Enregistrements télémétriques",
+    "sectors": "Secteurs avec données",
+    "latest_moisture": "Humidité récente",
+    "latest_temperature": "Température récente"
+  },
+  "charts": {
+    "soil": {
+      "title": "Humidité du sol et pH",
+      "subtitle": "Moyennes quotidiennes de l’humidité et du pH"
+    },
+    "nutrients": {
+      "title": "Niveaux nutritifs (NPK)",
+      "subtitle": "Moyennes quotidiennes de l’azote, du phosphore et du potassium"
+    },
+    "environment": {
+      "title": "Température et humidité",
+      "subtitle": "Moyennes quotidiennes"
+    },
+    "irrigation": {
+      "title": "Activité d’irrigation",
+      "subtitle": "Minutes estimées de fonctionnement de la pompe"
+    },
+    "condition": {
+      "title": "État des secteurs",
+      "subtitle": "Aperçu basé sur la télémétrie actuelle"
+    }
+  },
+  "legend": {
+    "soil_moisture": "Humidité (%)",
+    "soil_ph": "pH",
+    "nitrogen": "Azote",
+    "phosphorus": "Phosphore",
+    "potassium": "Potassium",
+    "temperature": "Température",
+    "humidity": "Humidité"
+  },
+  "condition": {
+    "healthy": "Sain",
+    "attention": "À surveiller",
+    "critical": "Critique",
+    "sectors": "secteurs"
+  },
+  "units": {
+    "percent": "%",
+    "minutes": "min"
+  },
+  "notes": {
+    "irrigation": "Calculé à partir des intervalles de télémétrie de la pompe ; aucun débitmètre n’est supposé.",
+    "condition": "Il s’agit d’un indicateur télémétrique simple, pas d’une prédiction de maladie par IA."
+  },
+  "empty": {
+    "title": "Aucune télémétrie disponible",
+    "description": "Connectez un nœud enregistré et attendez l’arrivée des données.",
+    "no_sectors": "Aucun secteur avec une télémétrie récente."
+  }
+}

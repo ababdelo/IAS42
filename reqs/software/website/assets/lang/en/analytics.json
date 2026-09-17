@@ -1,0 +1,75 @@
+{
+  "title": "Analytics",
+  "subtitle": "Environmental and irrigation trends across your farms.",
+  "scope": {
+    "all": "All farms"
+  },
+  "filters": {
+    "field": "Field",
+    "sector": "Sector",
+    "node": "IoT node",
+    "period": "Period",
+    "all_fields": "All fields",
+    "all_sectors": "All sectors",
+    "all_nodes": "All nodes",
+    "days_7": "Last 7 days",
+    "days_14": "Last 14 days",
+    "days_30": "Last 30 days"
+  },
+  "summary": {
+    "telemetry": "Telemetry records",
+    "sectors": "Sectors with data",
+    "latest_moisture": "Latest moisture",
+    "latest_temperature": "Latest temperature"
+  },
+  "charts": {
+    "soil": {
+      "title": "Soil moisture & pH",
+      "subtitle": "Daily average moisture and pH readings"
+    },
+    "nutrients": {
+      "title": "Nutrient levels (NPK)",
+      "subtitle": "Daily average nitrogen, phosphorus and potassium"
+    },
+    "environment": {
+      "title": "Temperature & humidity",
+      "subtitle": "Daily average readings"
+    },
+    "irrigation": {
+      "title": "Irrigation activity",
+      "subtitle": "Estimated pump-active minutes"
+    },
+    "condition": {
+      "title": "Sector condition",
+      "subtitle": "Rule-based overview from current telemetry"
+    }
+  },
+  "legend": {
+    "soil_moisture": "Moisture (%)",
+    "soil_ph": "pH",
+    "nitrogen": "Nitrogen",
+    "phosphorus": "Phosphorus",
+    "potassium": "Potassium",
+    "temperature": "Temperature",
+    "humidity": "Humidity"
+  },
+  "condition": {
+    "healthy": "Healthy",
+    "attention": "Needs attention",
+    "critical": "Critical",
+    "sectors": "sectors"
+  },
+  "units": {
+    "percent": "%",
+    "minutes": "min"
+  },
+  "notes": {
+    "irrigation": "Calculated from pump telemetry intervals; no flow meter data is assumed.",
+    "condition": "This is a simple telemetry heuristic, not an AI disease prediction."
+  },
+  "empty": {
+    "title": "No telemetry available",
+    "description": "Connect a registered node and wait for telemetry data to appear.",
+    "no_sectors": "No sectors with recent telemetry."
+  }
+}

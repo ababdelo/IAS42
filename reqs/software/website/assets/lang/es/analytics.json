@@ -1,0 +1,75 @@
+{
+  "title": "Analítica",
+  "subtitle": "Tendencias ambientales y de riego de tus explotaciones.",
+  "scope": {
+    "all": "Todas las explotaciones"
+  },
+  "filters": {
+    "field": "Campo",
+    "sector": "Sector",
+    "node": "Nodo IoT",
+    "period": "Periodo",
+    "all_fields": "Todos los campos",
+    "all_sectors": "Todos los sectores",
+    "all_nodes": "Todos los nodos",
+    "days_7": "Últimos 7 días",
+    "days_14": "Últimos 14 días",
+    "days_30": "Últimos 30 días"
+  },
+  "summary": {
+    "telemetry": "Registros de telemetría",
+    "sectors": "Sectores con datos",
+    "latest_moisture": "Humedad reciente",
+    "latest_temperature": "Temperatura reciente"
+  },
+  "charts": {
+    "soil": {
+      "title": "Humedad del suelo y pH",
+      "subtitle": "Promedios diarios de humedad y pH"
+    },
+    "nutrients": {
+      "title": "Niveles de nutrientes (NPK)",
+      "subtitle": "Promedios diarios de nitrógeno, fósforo y potasio"
+    },
+    "environment": {
+      "title": "Temperatura y humedad",
+      "subtitle": "Promedios diarios"
+    },
+    "irrigation": {
+      "title": "Actividad de riego",
+      "subtitle": "Minutos estimados de funcionamiento de la bomba"
+    },
+    "condition": {
+      "title": "Estado de los sectores",
+      "subtitle": "Resumen basado en la telemetría actual"
+    }
+  },
+  "legend": {
+    "soil_moisture": "Humedad (%)",
+    "soil_ph": "pH",
+    "nitrogen": "Nitrógeno",
+    "phosphorus": "Fósforo",
+    "potassium": "Potasio",
+    "temperature": "Temperatura",
+    "humidity": "Humedad"
+  },
+  "condition": {
+    "healthy": "Saludable",
+    "attention": "Requiere atención",
+    "critical": "Crítico",
+    "sectors": "sectores"
+  },
+  "units": {
+    "percent": "%",
+    "minutes": "min"
+  },
+  "notes": {
+    "irrigation": "Calculado a partir de los intervalos de telemetría de la bomba; no se supone un caudalímetro.",
+    "condition": "Es un indicador de telemetría simple, no una predicción de enfermedades con IA."
+  },
+  "empty": {
+    "title": "No hay telemetría disponible",
+    "description": "Conecta un nodo registrado y espera a que aparezcan los datos.",
+    "no_sectors": "No hay sectores con telemetría reciente."
+  }
+}
