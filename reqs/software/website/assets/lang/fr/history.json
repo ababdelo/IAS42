@@ -1,0 +1,67 @@
+{
+  "eyebrow": "CENTRE D’ACTIVITÉ",
+  "title": "Historique d’activité",
+  "subtitle": "Journal des événements générés par vos données IAS42.",
+  "count_label": "événements",
+  "filters": {
+    "title": "Filtrer l’activité",
+    "subtitle": "Affinez votre historique par exploitation, type d’événement ou période.",
+    "status": "Filtres actifs",
+    "field": "Exploitation",
+    "event_type": "Type d’événement",
+    "period": "Période",
+    "all_fields": "Toutes les exploitations",
+    "all_types": "Tous les types",
+    "days_7": "7 derniers jours",
+    "days_14": "14 derniers jours",
+    "days_30": "30 derniers jours"
+  },
+  "timeline": {
+    "title": "Activité récente",
+    "subtitle": "Vos derniers événements IAS42, classés par heure."
+  },
+  "types": {
+    "irrigation": "Irrigation",
+    "alert": "Alerte",
+    "temperature": "Température",
+    "update": "Mise à jour"
+  },
+  "empty": {
+    "title": "Aucune activité",
+    "description": "Aucun événement ne correspond aux filtres sélectionnés."
+  },
+  "events": {
+    "field_created": {
+      "title": "Exploitation créée",
+      "description": "{{field}} a été ajoutée à votre compte."
+    },
+    "sector_created": {
+      "title": "Secteur créé",
+      "description": "{{sector}} a été ajouté à {{field}}."
+    },
+    "node_registered": {
+      "title": "Nœud IoT enregistré",
+      "description": "Le nœud {{node}} a été enregistré pour {{sector}}."
+    },
+    "irrigation_start": {
+      "title": "Irrigation démarrée",
+      "description": "La pompe a démarré dans {{sector}} sur {{node}}."
+    },
+    "irrigation_complete": {
+      "title": "Irrigation terminée",
+      "description": "La pompe s’est arrêtée dans {{sector}} sur {{node}}."
+    },
+    "rain": {
+      "title": "Pluie détectée",
+      "description": "De la pluie a été détectée dans {{sector}}."
+    },
+    "low_moisture": {
+      "title": "Humidité du sol sous 45 %",
+      "description": "L’humidité du sol est descendue à {{value}} %."
+    },
+    "high_temperature": {
+      "title": "Température à {{value}} °C",
+      "description": "La température de l’air a dépassé le seuil d’alerte de 31 °C."
+    }
+  }
+}

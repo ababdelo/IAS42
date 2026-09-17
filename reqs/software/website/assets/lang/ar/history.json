@@ -1,0 +1,67 @@
+{
+  "eyebrow": "مركز النشاط",
+  "title": "سجل النشاط",
+  "subtitle": "سجل للأحداث الناتجة عن بيانات IAS42 الخاصة بك.",
+  "count_label": "أحداث",
+  "filters": {
+    "title": "تصفية النشاط",
+    "subtitle": "ضيّق سجل النشاط حسب الحقل أو نوع الحدث أو الفترة الزمنية.",
+    "status": "فلاتر مباشرة",
+    "field": "الحقل",
+    "event_type": "نوع الحدث",
+    "period": "الفترة",
+    "all_fields": "جميع الحقول",
+    "all_types": "جميع أنواع الأحداث",
+    "days_7": "آخر 7 أيام",
+    "days_14": "آخر 14 يوماً",
+    "days_30": "آخر 30 يوماً"
+  },
+  "timeline": {
+    "title": "النشاط الأخير",
+    "subtitle": "أحدث أحداث IAS42 مرتبة حسب الوقت."
+  },
+  "types": {
+    "irrigation": "الري",
+    "alert": "تنبيه",
+    "temperature": "درجة الحرارة",
+    "update": "تحديث"
+  },
+  "empty": {
+    "title": "لا يوجد نشاط",
+    "description": "لا توجد أحداث مطابقة للفلاتر المحددة."
+  },
+  "events": {
+    "field_created": {
+      "title": "تم إنشاء حقل",
+      "description": "تمت إضافة {{field}} إلى حسابك."
+    },
+    "sector_created": {
+      "title": "تم إنشاء قطاع",
+      "description": "تمت إضافة {{sector}} إلى {{field}}."
+    },
+    "node_registered": {
+      "title": "تم تسجيل عقدة IoT",
+      "description": "تم تسجيل العقدة {{node}} للقطاع {{sector}}."
+    },
+    "irrigation_start": {
+      "title": "بدأ الري",
+      "description": "بدأ تشغيل المضخة في {{sector}} على {{node}}."
+    },
+    "irrigation_complete": {
+      "title": "اكتمل الري",
+      "description": "توقف تشغيل المضخة في {{sector}} على {{node}}."
+    },
+    "rain": {
+      "title": "تم اكتشاف المطر",
+      "description": "تم اكتشاف المطر في {{sector}}."
+    },
+    "low_moisture": {
+      "title": "رطوبة التربة أقل من 45٪",
+      "description": "انخفضت رطوبة التربة إلى {{value}}٪."
+    },
+    "high_temperature": {
+      "title": "درجة الحرارة {{value}}°م",
+      "description": "تجاوزت درجة حرارة الهواء عتبة التنبيه البالغة 31°م."
+    }
+  }
+}

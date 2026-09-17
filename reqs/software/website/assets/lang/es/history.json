@@ -1,0 +1,67 @@
+{
+  "eyebrow": "CENTRO DE ACTIVIDAD",
+  "title": "Historial de actividad",
+  "subtitle": "Registro de eventos generados a partir de tus datos IAS42.",
+  "count_label": "eventos",
+  "filters": {
+    "title": "Filtrar actividad",
+    "subtitle": "Limita el historial por campo, tipo de evento o periodo.",
+    "status": "Filtros activos",
+    "field": "Campo",
+    "event_type": "Tipo de evento",
+    "period": "Periodo",
+    "all_fields": "Todos los campos",
+    "all_types": "Todos los tipos",
+    "days_7": "Últimos 7 días",
+    "days_14": "Últimos 14 días",
+    "days_30": "Últimos 30 días"
+  },
+  "timeline": {
+    "title": "Actividad reciente",
+    "subtitle": "Tus últimos eventos IAS42, ordenados por hora."
+  },
+  "types": {
+    "irrigation": "Riego",
+    "alert": "Alerta",
+    "temperature": "Temperatura",
+    "update": "Actualización"
+  },
+  "empty": {
+    "title": "No hay actividad",
+    "description": "No hay eventos que coincidan con los filtros seleccionados."
+  },
+  "events": {
+    "field_created": {
+      "title": "Campo creado",
+      "description": "{{field}} se añadió a tu cuenta."
+    },
+    "sector_created": {
+      "title": "Sector creado",
+      "description": "{{sector}} se añadió a {{field}}."
+    },
+    "node_registered": {
+      "title": "Nodo IoT registrado",
+      "description": "El nodo {{node}} se registró para {{sector}}."
+    },
+    "irrigation_start": {
+      "title": "Riego iniciado",
+      "description": "La actividad de la bomba comenzó en {{sector}} en {{node}}."
+    },
+    "irrigation_complete": {
+      "title": "Riego completado",
+      "description": "La actividad de la bomba terminó en {{sector}} en {{node}}."
+    },
+    "rain": {
+      "title": "Lluvia detectada",
+      "description": "Se detectó lluvia en {{sector}}."
+    },
+    "low_moisture": {
+      "title": "Humedad del suelo inferior al 45 %",
+      "description": "La humedad del suelo bajó al {{value}} %."
+    },
+    "high_temperature": {
+      "title": "Temperatura de {{value}} °C",
+      "description": "La temperatura del aire superó el umbral de alerta de 31 °C."
+    }
+  }
+}

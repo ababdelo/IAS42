@@ -1,0 +1,67 @@
+{
+  "eyebrow": "ACTIVITY CENTER",
+  "title": "Activity History",
+  "subtitle": "A log of events generated from your IAS42 data.",
+  "count_label": "events",
+  "filters": {
+    "title": "Filter activity",
+    "subtitle": "Narrow your history by field, event type, or time period.",
+    "status": "Live filters",
+    "field": "Field",
+    "event_type": "Event type",
+    "period": "Period",
+    "all_fields": "All fields",
+    "all_types": "All event types",
+    "days_7": "Last 7 days",
+    "days_14": "Last 14 days",
+    "days_30": "Last 30 days"
+  },
+  "timeline": {
+    "title": "Recent activity",
+    "subtitle": "Your latest IAS42 events, ordered by time."
+  },
+  "types": {
+    "irrigation": "Irrigation",
+    "alert": "Alert",
+    "temperature": "Temperature",
+    "update": "Update"
+  },
+  "empty": {
+    "title": "No activity found",
+    "description": "There are no matching events for the selected filters."
+  },
+  "events": {
+    "field_created": {
+      "title": "Field created",
+      "description": "{{field}} was added to your account."
+    },
+    "sector_created": {
+      "title": "Sector created",
+      "description": "{{sector}} was added to {{field}}."
+    },
+    "node_registered": {
+      "title": "IoT node registered",
+      "description": "Node {{node}} was registered for {{sector}}."
+    },
+    "irrigation_start": {
+      "title": "Irrigation started",
+      "description": "Pump activity started in {{sector}} on {{node}}."
+    },
+    "irrigation_complete": {
+      "title": "Irrigation completed",
+      "description": "Pump activity stopped in {{sector}} on {{node}}."
+    },
+    "rain": {
+      "title": "Rain detected",
+      "description": "Rain was detected in {{sector}}."
+    },
+    "low_moisture": {
+      "title": "Soil moisture below 45%",
+      "description": "Soil moisture dropped to {{value}}%."
+    },
+    "high_temperature": {
+      "title": "Temperature reached {{value}}°C",
+      "description": "The measured air temperature crossed the 31°C warning threshold."
+    }
+  }
+}
