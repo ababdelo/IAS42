@@ -183,12 +183,76 @@ body.dark-theme .timeline-scroll-area::-webkit-scrollbar-track {
 
 .weather-icon-large {
   font-size: 3.5rem;
-  color: #eab308;
   line-height: 1;
+}
+
+.weather-icon--clear-day {
+  color: #eab308;
+}
+
+.weather-icon--clear-night {
+  color: #6366f1;
+}
+
+.weather-icon--rain {
+  color: #0284c7;
+}
+
+.weather-icon--cold {
+  color: #38bdf8;
+}
+
+.weather-icon--freezing {
+  color: #0ea5e9;
+}
+
+.weather-icon--hot {
+  color: #f97316;
+}
+
+.weather-icon--extreme-heat {
+  color: #dc2626;
+}
+
+.weather-icon--wind {
+  color: #64748b;
+}
+
+.weather-icon--storm,
+.weather-icon--danger {
+  color: #7c3aed;
+}
+
+.weather-icon--unknown {
+  color: var(--text-color);
 }
 
 .weather-temp-cond .temp-wrapper {
   color: var(--title-color);
+}
+
+.temperature--comfortable {
+  color: var(--title-color);
+}
+
+.temperature--cold {
+  color: #0284c7;
+}
+
+.temperature--freezing {
+  color: #2563eb;
+}
+
+.temperature--hot {
+  color: #ea580c;
+}
+
+.temperature--extreme-heat {
+  color: #dc2626;
+}
+
+.temperature--unknown {
+  color: var(--text-color);
 }
 
 .weather-temp-cond .temp {
@@ -265,6 +329,34 @@ body.dark-theme .timeline-scroll-area::-webkit-scrollbar-track {
 .weather-minor-metrics .metric:nth-child(1) i {
   color: #64748b;
   font-size: 1.1rem;
+}
+
+.weather-minor-metrics .metric i.metric-icon--calm {
+  color: #64748b;
+}
+
+.weather-minor-metrics .metric i.metric-icon--warning {
+  color: #f59e0b;
+}
+
+.weather-minor-metrics .metric i.metric-icon--danger {
+  color: #dc2626;
+}
+
+.weather-minor-metrics .metric i.metric-icon--humid {
+  color: #0284c7;
+}
+
+.weather-minor-metrics .metric i.metric-icon--dry {
+  color: #d97706;
+}
+
+.weather-minor-metrics .metric i.metric-icon--balanced {
+  color: #16a34a;
+}
+
+.weather-minor-metrics .metric i.metric-icon--unknown {
+  color: var(--text-color);
 }
 
 /* Wind - Slate Gray */
@@ -646,6 +738,12 @@ body.dark-theme .ai-badge.status-bad strong {
   bottom: 20px;
   width: 2px;
   background-color: rgba(0, 0, 0, 0.06);
+}
+
+.timeline-empty {
+  color: var(--text-color);
+  margin: 0;
+  text-align: center;
 }
 
 .time-node {

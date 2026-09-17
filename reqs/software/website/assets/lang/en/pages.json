@@ -1,26 +1,26 @@
 {
   "dashboard": {
-    "title": "Tableau de bord"
+    "title": "Dashboard"
   },
   "fields": {
-    "title": "Parcelles"
+    "title": "Fields"
   },
   "analytics": {
-    "title": "Analyses"
+    "title": "Analytics"
   },
   "history": {
-    "title": "Historique"
+    "title": "History"
   },
   "notifications": {
     "title": "Notifications"
   },
   "profile": {
-    "title": "Profil"
+    "title": "Profile"
   },
   "settings": {
-    "title": "Paramètres"
+    "title": "Settings"
   },
   "sectors": {
-    "title": "Secteurs"
+    "title": "Sectors"
   }
 }

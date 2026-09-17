@@ -1,31 +1,26 @@
 {
   "dashboard": {
-    "title": "Panel",
-    "subtitle": "Hola. Este es el estado de tu sistema.",
-    "empty_state": "No hay datos."
+    "title": "Panel"
+  },
+  "fields": {
+    "title": "Campos"
   },
   "analytics": {
-    "title": "Analíticas",
-    "subtitle": "Cultivos, agua y entorno.",
-    "empty_state": "Esperando datos de sensores..."
+    "title": "Analítica"
   },
   "history": {
-    "title": "Historial",
-    "subtitle": "Eventos recientes y acciones automáticas."
+    "title": "Historial"
   },
   "notifications": {
-    "title": "Notificaciones",
-    "mark_all_read": "Marcar leídas",
-    "empty_state": "No hay notificaciones."
+    "title": "Notificaciones"
   },
   "profile": {
-    "title": "Perfil",
-    "personal_info": "Datos Personales",
-    "update_btn": "Actualizar"
+    "title": "Perfil"
   },
   "settings": {
-    "title": "Configuración",
-    "preferences": "Preferencias de la App",
-    "save_btn": "Guardar"
+    "title": "Configuración"
+  },
+  "sectors": {
+    "title": "Sectores"
   }
 }
